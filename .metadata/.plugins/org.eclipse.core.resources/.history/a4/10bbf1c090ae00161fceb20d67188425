@@ -1,0 +1,8 @@
+package punGent;
+
+public class hello_world {
+	public static void main(Sting[] args){
+		Systems.out.printLn("Hello World");
+	}
+	
+}
