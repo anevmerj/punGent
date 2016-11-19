@@ -21,8 +21,18 @@ public class catBase extends parser{
     public void add_word(String a){associated_words.addElement(a);}
     public void add_cat(String a){cat.addElement(a);}
     public String get_pun(){return pun;}
-    public String get_word(){
-        return associated_words.lastElement();
+    public Vector<String> get_word(){
+        return associated_words;
+    }
+    public Vector<String> get_cat(){return cat;}
+    
+    public boolean is_word(String arg){
+        for(int i = 0; i < associated_words.size();i++){
+            if(arg.equals(associated_words.elementAt(i))){
+                return true;
+            }
+        }        
+        return false;
     }
     
 }

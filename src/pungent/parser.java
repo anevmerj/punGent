@@ -15,7 +15,7 @@ import java.util.Vector;
  * @author Alexei
  */
 public class parser extends PunGent{
-    public static void main(String[] args)throws Exception{
+    public static Vector<catBase> main(String[] args)throws Exception{
 
         String fileToRead = "testChart.csv";
         String sendToArray = null;
@@ -51,7 +51,7 @@ public class parser extends PunGent{
         }catch(Exception err){
             System.out.println(err);
         }         
-        
+        return collection;
     }
     
     
