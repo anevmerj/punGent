@@ -1,6 +1,5 @@
 package com.example.shawnalee.pungen;
 
-import android.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,7 +11,6 @@ import android.view.Display;
 import java.lang.String;
 import android.widget.TextView;
 import java.util.Vector;
-import android.view.ViewGroup.LayoutParams;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     Button pun_me;
     Button categories;
     Button ranpun;
-    TextView stringinput;
+    TextView output;
 
     Vector uservector;
 
@@ -58,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
 
         uservector = new Vector();
 
-        stringinput = new TextView(this);
+        output = new TextView(this);
+        mainLayout.addView(output);
 
         categories.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,20 +71,20 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        pun_me.setOnClickListener(new View.OnClickListener() {
+        pun_me.setOnClickListener(new View.OnClickListener() { //Needs to check error in user input. It will output either a pun or an error
             @Override
             public void onClick(View v) {
                 user_input = input.getText().toString();
-                uservector.add(user_input);
-
-                stringinput.setText(uservector.get(k).toString());
-                mainLayout.addView(stringinput);
-
-                //*************After implementation of string, clear the string*********
-                //user_input = "";
-                k++;
             }
         });
+
+        ranpun.setOnClickListener(new View.OnClickListener() { //Output a pun
+            @Override
+            public void onClick(View v) {
+                output.setText();
+            }
+        });
+
         setContentView(mainLayout);
     }
 
