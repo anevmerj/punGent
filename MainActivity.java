@@ -20,6 +20,7 @@ import java.util.Vector;
 import java.util.Random;
 import java.io.StringReader;
 
+
 public class MainActivity extends AppCompatActivity{
 
 
@@ -88,7 +89,7 @@ public class MainActivity extends AppCompatActivity{
 
     String randomPunGenerator(Vector<String> possiblePuns){
         Random rand = new Random();
-        int rnd_num = rand.nextInt() % possiblePuns.size();
+        int rnd_num = Math.abs(rand.nextInt() % possiblePuns.size());
         String rnd_pun = possiblePuns.elementAt(rnd_num);
         return rnd_pun;
     }
@@ -205,14 +206,9 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 //String empty_input = null;
-                Vector<String> possiblePuns = new Vector();
-                for(int i = 0;i<collection.size();i++){
-                         possiblePuns.add(collection.elementAt(i).get_pun());
-                }
-                //possiblePuns = punOut(empty_input, collection);
-                output.setText(randomPunGenerator(possiblePuns));
-
-            }
+                Random rand = new Random();
+                int rnd_num = Math.abs(rand.nextInt() % collection.size());
+                output.setText(collection.elementAt(rnd_num).get_pun());
         });
 
         setContentView(mainLayout);
