@@ -13,7 +13,7 @@ public class catBase{
 
 
     catBase(String a, String b, String c){cat.add(a); pun =b; associated_words.add(c);}
-
+    catBase(String b){cat.add("myPuns"); pun = b;}
     public void add_word(String a){associated_words.addElement(a);}
 
     public void add_cat(String a){cat.addElement(a);}
