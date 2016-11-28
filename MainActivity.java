@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity{
     Vector<String> celebritesc4t = new Vector();
     Vector<String> jokesc4t = new Vector();
     Vector<String> animalsc4t = new Vector();
-    Vector<String> lifelessonsc4t = new Vector();
+    Vector<String> myPunsc4t = new Vector();
     Vector<String> moviesc4t = new Vector();
     Vector<String> holidayc4t = new Vector();
     Vector<String> pokemonc4t = new Vector();
@@ -185,10 +185,6 @@ public class MainActivity extends AppCompatActivity{
                 }
                 if(categoryVector.elementAt(x).equals("animals")){
                     animalsc4t.addElement(correspondingPuns.elementAt(x));
-                    continue;
-                }
-                if(categoryVector.elementAt(x).equals("life lessons")){
-                    lifelessonsc4t.addElement(correspondingPuns.elementAt(x));
                     continue;
                 }
                 if(categoryVector.elementAt(x).equals("movies")){
