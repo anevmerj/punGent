@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity{
 
     //File file = new File("C:\\Users\\mirna\\AndroidStudioProjects\\PunGent\\app\\src\\main\\res\\assets\\PunGen.csv");
 
-    public void parser(){
+    public void parser(String fileName){
 
         //String fileToRead = "C:\\Users\\mirna\\AndroidStudioProjects\\PunGent\\app\\src\\main\\res\\assets\\PunGen.csv";
         String sendToArray = null;
@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity{
 //                is = getAssets().open("test/"+fileNames);
 //            }
             AssetManager am = getAssets();
-            InputStream is = am.open("PunGen.txt");
+            InputStream is = am.open(fileName);
            // int size = is.available();
             //byte[] buffer = new byte[size];
             //is.read(buffer);
@@ -105,8 +105,6 @@ public class MainActivity extends AppCompatActivity{
             BufferedReader br = new BufferedReader(readerFile);
             int i = 0;
             while((sendToArray = br.readLine()) != null){
-
-                //sendToArray = "Do you have any raisins? No then what about a date?,Pick up Lines,date\nWhat do elves learn in school? The Elf-abet!,Holiday,christmas\nYou've got to be kitten me.,Animals,kitten\n,,Kidding\n";
                 stuff = sendToArray.split(",");
                 pun = stuff[0];
                 cat = stuff[1];
@@ -237,6 +235,16 @@ public class MainActivity extends AppCompatActivity{
                 //continue;
             }
         }
+    }
+    
+    void add_to_myPuns(String myPun){
+        collection.addElement(new catBase(myPun));
+        myPunsc4t.addElement(myPun);
+        //FileOutputStream out = new FileOutputStream("myPuns.txt", true);
+        AssetManager am = getAssets();
+        OutputStream os = am.open("myPuns.txt");
+        os.write(myPun+",myPuns,\n");
+        os.close();
     }
 
     @Override
