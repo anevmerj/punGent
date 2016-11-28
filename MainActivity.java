@@ -40,6 +40,22 @@ public class MainActivity extends AppCompatActivity{
     Vector<catBase> collection = new Vector();
     int i = 0; //id for categories button
     int k = 0;
+    
+    //CATEGORIES STUFF STARTS
+    Vector<String> categoryVector = new Vector();
+    Vector<String> correspondingPuns = new Vector();
+    
+    Vector<String> pickuplinesc4t = new Vector();
+    Vector<String> foodc4t = new Vector();
+    Vector<String> sciencec4t = new Vector();
+    Vector<String> celebritesc4t = new Vector();
+    Vector<String> jokesc4t = new Vector();
+    Vector<String> animalsc4t = new Vector();
+    Vector<String> lifelessonsc4t = new Vector();
+    Vector<String> moviesc4t = new Vector();
+    Vector<String> holidayc4t = new Vector();
+    Vector<String> pokemonc4t = new Vector();
+    //CATEGORIES STUFF ENDS
 
     String user_input;
 
@@ -128,6 +144,63 @@ public class MainActivity extends AppCompatActivity{
         }
         return puns;
     }
+    
+    void make_cat_and_pun_vectors(){
+        for(int i = 0; i < collection.size(); i++){ //runs through every element of vector of pun obj
+            Vector<String> c4t = new Vector();
+            c4t = collection.elementAt(i).get_cat(); //creates vector of catrgories for specific pun
+            for(int j = 0; j < c4t.size(); i++){ //adds an element to pun vec and cat vec for each unique pair of cat:pun
+                categoryVector.addElement(c4t.elementAt(j).toLowerCase());
+                correspondingPuns.addElement(collection.elementAt(i).get_pun());
+            }
+        }
+    }
+    
+    void fillCategoryVectors(){
+        make_cat_and_pun_vectors();
+        for(int x = 0; x < categoryVector.size(); ++x){
+                            if(categoryVector.elementAt(x)=="pick up lines"){
+                    pickuplinesc4t.addElement(correspondingPuns.elementAt(x));
+                    continue;
+                }
+                if(categoryVector.elementAt(x).equals("food")){
+                    foodc4t.addElement(correspondingPuns.elementAt(x));
+                    continue;
+                }
+                if(categoryVector.elementAt(x).equals("science")){
+                    sciencec4t.addElement(correspondingPuns.elementAt(x));
+                    continue;
+                }
+                if(categoryVector.elementAt(x).equals("celebrities")){
+                    celebritiesc4t.addElement(correspondingPuns.elementAt(x));
+                    continue;
+                }
+                if(categoryVector.elementAt(x).equals("jokes")){
+                    jokesc4t.addElement(correspondingPuns.elementAt(x));
+                    continue;
+                }
+                if(categoryVector.elementAt(x).equals("pokemon")){
+                    pokemonc4t.addElement(correspondingPuns.elementAt(x));
+                    continue;
+                }
+                if(categoryVector.elementAt(x).equals("animals")){
+                    animalsc4t.addElement(correspondingPuns.elementAt(x));
+                    continue;
+                }
+                if(categoryVector.elementAt(x).equals("lifelessons")){
+                    lifelessonsc4t.addElement(correspondingPuns.elementAt(x));
+                    continue;
+                }
+                if(categoryVector.elementAt(x).equals("movies")){
+                    moviesc4t.addElement(correspondingPuns.elementAt(x));
+                    continue;
+                }
+               if(categoryVector.elementAt(x).equals("holiday")){
+                    holidayc4t.addElement(correspondingPuns.elementAt(x));
+                    continue;
+                }
+        }
+    }    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,7 +234,8 @@ public class MainActivity extends AppCompatActivity{
 
         test = new TextView(this);
         mainLayout.addView(test);
-        this.parser();
+        parser();
+        fillCategoryVectors();
 
         categories.setOnClickListener(new View.OnClickListener() {
             @Override
