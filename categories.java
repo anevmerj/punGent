@@ -1,4 +1,7 @@
-package com.example.mirna.pungent;
+package com.example.shawnalee.pungen;
+import android.graphics.Point;
+import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Display;
@@ -16,6 +19,7 @@ import android.widget.Button;
 public class categories extends MainActivity {
     LinearLayout containerLayout;
     LinearLayout mainLayout;
+
 
     LayoutParams layoutParams;
     PopupWindow popUpWindow;
@@ -41,45 +45,95 @@ public class categories extends MainActivity {
 
         mainLayout = new LinearLayout(this);
         mainLayout.setOrientation(LinearLayout.VERTICAL);
+        mainLayout.setBackgroundColor(0xFFcde1f8);
+        Typeface buttonFont = Typeface.createFromAsset(getAssets(), "Fonts/CurseCasual.ttf");
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
+
+
+
 
         pickuplines = new Button(this);
-        pickuplines.setText("Pick Up Lines");
+        pickuplines.setText("P i c k  U p  L i n e s");
+        pickuplines.setTextSize(25);
+        pickuplines.getBackground().setColorFilter(0xFFfc5e5e, PorterDuff.Mode.MULTIPLY);
+        pickuplines.setTypeface(buttonFont);
+        pickuplines.setLayoutParams(new LinearLayout.LayoutParams(width,(int)(0.095*height)));
         mainLayout.addView(pickuplines);
 
         food = new Button(this);
-        food.setText("Food");
+        food.setText("F o o d");
+        food.setTextSize(25);
+        food.setTypeface(buttonFont);
+        food.getBackground().setColorFilter(0xFFff9c00, PorterDuff.Mode.MULTIPLY);
+        food.setLayoutParams(new LinearLayout.LayoutParams(width,(int)(0.095*height)));
         mainLayout.addView(food);
 
         science = new Button(this);
-        science.setText("Science");
+        science.setText("S c i e n c e");
+        science.setTextSize(25);
+        science.setTypeface(buttonFont);
+        science.getBackground().setColorFilter(0xFF46b551, PorterDuff.Mode.MULTIPLY);
+        science.setLayoutParams(new LinearLayout.LayoutParams(width,(int)(0.095*height)));
         mainLayout.addView(science);
 
         celebrities = new Button(this);
-        celebrities.setText("Celebrities");
+        celebrities.setText("C e l e b r i t i e s");
+        celebrities.setTextSize(25);
+        celebrities.setTypeface(buttonFont);
+        celebrities.getBackground().setColorFilter(0xFF41afe8, PorterDuff.Mode.MULTIPLY);
+        celebrities.setLayoutParams(new LinearLayout.LayoutParams(width,(int)(0.095*height)));
         mainLayout.addView(celebrities);
 
         jokes = new Button(this);
-        jokes.setText("Jokes");
+        jokes.setText("J o k e s");
+        jokes.setTextSize(25);
+        jokes.setTypeface(buttonFont);
+        jokes.getBackground().setColorFilter(0xFF6963e0, PorterDuff.Mode.MULTIPLY);
+        jokes.setLayoutParams(new LinearLayout.LayoutParams(width,(int)(0.095*height)));
         mainLayout.addView(jokes);
 
         animals = new Button(this);
-        animals.setText("Animals");
+        animals.setText("A n i m a l s");
+        animals.setTextSize(25);
+        animals.setTypeface(buttonFont);
+        animals.getBackground().setColorFilter(0xFF9e63e0, PorterDuff.Mode.MULTIPLY);
+        animals.setLayoutParams(new LinearLayout.LayoutParams(width,(int)(0.095*height)));
         mainLayout.addView(animals);
 
         movies = new Button(this);
-        movies.setText("Movies");
+        movies.setText("M o v i e s");
+        movies.setTextSize(25);
+        movies.setTypeface(buttonFont);
+        movies.getBackground().setColorFilter(0xFFfc5e5e, PorterDuff.Mode.MULTIPLY);
+        movies.setLayoutParams(new LinearLayout.LayoutParams(width,(int)(0.095*height)));
         mainLayout.addView(movies);
 
         holiday = new Button(this);
-        holiday.setText("Holiday");
+        holiday.setText("H o l i d a y");
+        holiday.setTextSize(25);
+        holiday.setTypeface(buttonFont);
+        holiday.getBackground().setColorFilter(0xFFff9c00, PorterDuff.Mode.MULTIPLY);
+        holiday.setLayoutParams(new LinearLayout.LayoutParams(width,(int)(0.095*height)));
         mainLayout.addView(holiday);
 
         pokemon = new Button(this);
-        pokemon.setText("Pokemon");
+        pokemon.setText("P o k e m o n");
+        pokemon.setTextSize(25);
+        pokemon.setTypeface(buttonFont);
+        pokemon.getBackground().setColorFilter(0xFFffcc00, PorterDuff.Mode.MULTIPLY);
+        pokemon.setLayoutParams(new LinearLayout.LayoutParams(width,(int)(0.095*height)));
         mainLayout.addView(pokemon);
 
         myPuns = new Button(this);
-        myPuns.setText("My Puns");
+        myPuns.setText("M y  P u n s");
+        myPuns.setTextSize(25);
+        myPuns.setTypeface(buttonFont);
+        myPuns.getBackground().setColorFilter(0xFF46b551,PorterDuff.Mode.MULTIPLY);
+        myPuns.setLayoutParams(new LinearLayout.LayoutParams(width,(int)(0.095*height)));
         mainLayout.addView(myPuns);
 
         containerLayout = new LinearLayout(this);
