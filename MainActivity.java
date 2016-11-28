@@ -187,7 +187,7 @@ public class MainActivity extends AppCompatActivity{
                     animalsc4t.addElement(correspondingPuns.elementAt(x));
                     continue;
                 }
-                if(categoryVector.elementAt(x).equals("lifelessons")){
+                if(categoryVector.elementAt(x).equals("life lessons")){
                     lifelessonsc4t.addElement(correspondingPuns.elementAt(x));
                     continue;
                 }
