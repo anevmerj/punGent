@@ -1,29 +1,30 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+package com.example.shawnalee.pungen;
+
+/**
+ * Created by Shawna Lee on 2016-11-19.
  */
-package pungent;
+
 import java.util.Vector;
 import java.util.Random;
+import android.support.v7.app.AppCompatActivity;
 /**
  *
  * @author Scaret Camille Chao
  */
-public class PunGent {
-    
-     public static void main(String arg){
-         
-     }
-    
-String randomPunGenerator(Vector<String> collection){
-           Random rand = new Random();
-           int rnd_num = rand.nextInt() % PunGent.collection.size();
-           String rnd_pun = PunGent.collection.elementAt(randNumGen());
-           return rnd_pun;
-        }
+public class PunGen {
+
+    public static void main(String arg){
+
+    }
+
+    String randomPunGenerator(Vector<String> possiblePuns){
+        Random rand = new Random();
+        int rnd_num = rand.nextInt() % possiblePuns.size();
+        String rnd_pun = possiblePuns.elementAt(rnd_num);
+        return rnd_pun;
+    }
     /**
      * @param args the command line arguments
      */
-    
+
 }
