@@ -11,6 +11,12 @@ import android.view.Display;
 import android.util.Log;
 import android.content.res.AssetManager;
 import android.content.Context;
+import android.os.Environment;
+import android.graphics.Point;
+import android.widget.GridLayout.LayoutParams;
+import android.graphics.Typeface;
+import android.widget.ImageView;
+import android.graphics.PorterDuff;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -22,6 +28,8 @@ import java.util.Vector;
 import java.util.Random;
 import java.io.StringReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -40,15 +48,15 @@ public class MainActivity extends AppCompatActivity{
     Vector<catBase> collection = new Vector();
     int i = 0; //id for categories button
     int k = 0;
-    
+
     //CATEGORIES STUFF STARTS
     Vector<String> categoryVector = new Vector();
     Vector<String> correspondingPuns = new Vector();
-    
+
     Vector<String> pickuplinesc4t = new Vector();
     Vector<String> foodc4t = new Vector();
     Vector<String> sciencec4t = new Vector();
-    Vector<String> celebritesc4t = new Vector();
+    Vector<String> celebritiesc4t = new Vector();
     Vector<String> jokesc4t = new Vector();
     Vector<String> animalsc4t = new Vector();
     Vector<String> myPunsc4t = new Vector();
@@ -61,9 +69,15 @@ public class MainActivity extends AppCompatActivity{
 
     Display screen;
 
+    static Context context;
+
+   //File file = Environment.getExternalStorageDirectory();
+
+    //File file = new File("C:\\Users\\mirna\\AndroidStudioProjects\\PunGent\\app\\src\\main\\res\\assets\\PunGen.csv");
+
     public void parser(){
 
-        String fileToRead = "PunGen.csv";
+        //String fileToRead = "C:\\Users\\mirna\\AndroidStudioProjects\\PunGent\\app\\src\\main\\res\\assets\\PunGen.csv";
         String sendToArray = null;
         String[] stuff = new String[3];
         String pun;
@@ -71,15 +85,39 @@ public class MainActivity extends AppCompatActivity{
         String word;
 
         try{
-
-            //Reader readerFile = new FileReader(fileToRead);
-            BufferedReader br = new BufferedReader(new StringReader("Do you have any raisins? No then what about a date?,Pick up Lines,date\nWhat do elves learn in school? The Elf-abet!,Holiday,christmas\nYou've got to be kitten me.,Animals,kitten\n,,Kidding\nAre you a beaver? Cause Dam.,Pick up Lines,damn\nIf you were a fruit you'd be a fineapple.,Pick up Lines,pineapple\nIf you were a vegetable you'd be a cutecumber.,Pick up Lines,cucumber\nAre you an angle from Heaven? Beause you're acute.,Pick up Lines,angel\nIf you were a chicken you'd be impeccable.,Pick up Lines,peck\nWhat does a nosy pepper do? Get jalapeno business.,Food,jalapeno\nHow do you kill a vegetarian vampire?  A steak.,Food,stake\n,,steak\nDid you hear about the Mexican train killer? He had locomotives,,loco\nHow does NASA orgnize their company parties? They planet.,Science,plan\nWhat did Jay-Z call his girlfriend before they got married? Feyonce.,Celebrities,beyonce\n,Jokes,\nWhat do you call dangerous precipitation? A rain of terror.,Science,reign\n,Jokes,\nWhy can't bikes stand on their own? They're two tired.,Jokes,too\nAtheism is a non-prophet organization,Jokes,profit\nWhat do you call a dinosaur with an extensive vocabulary? A Thesaurus.,Dinosaur,\n,Jokes,\nPampered cows produce spoiled milk,Animals,spoiled\nLearn sign language - it's very handy,Life Lessons,handy\nDry erase boards are remarkable,Life Lessons,mark\nDwarfs and midgets have very little in common,Life Lessons,little\nHow do you make holy water? Boil the hell out of it.,Jokes ,hell\nA friend tried to annoy me with bird puns but I learned that toucan play at that game.,Animals,two\nI'm no photographer but I can picture us together.,Pick up Lines,picture\nWhat is Forrest Gump's email password? 1forrest1,Jokes,run\n,Movies,\nWhat do you call people who are afraid of Santa Claus? Claustrophobic.,Holiday,claus\nWhich day do potatoes hate the most? Friday.,Animals,fry\nWhat do sea monsters eat for breakfast? Fish and ships.,Animals,chips\nWhich of Santa's reindeers needs to mind his manners the most? Rudeolph,Holiday,christmas\n"));
+            //InputStream is = file.open();
+            //String text = "PunGen.csv";
+            //InputStream is = getAssets().open(text);
+            //String[] fileNames = getAssets().list("test");
+//            InputStream is = null;
+//            for(String name:fileNames){
+//                is = getAssets().open("test/"+fileNames);
+//            }
+            AssetManager am = getAssets();
+            InputStream is = am.open("PunGen.txt");
+           // int size = is.available();
+            //byte[] buffer = new byte[size];
+            //is.read(buffer);
+            //String text = new String();
+            //String[] files = am.list("");
+            //String string = is.toString();
+            InputStreamReader readerFile = new InputStreamReader(is);
+            BufferedReader br = new BufferedReader(readerFile);
+            int i = 0;
             while((sendToArray = br.readLine()) != null){
+
                 //sendToArray = "Do you have any raisins? No then what about a date?,Pick up Lines,date\nWhat do elves learn in school? The Elf-abet!,Holiday,christmas\nYou've got to be kitten me.,Animals,kitten\n,,Kidding\n";
                 stuff = sendToArray.split(",");
                 pun = stuff[0];
                 cat = stuff[1];
-                word = stuff[2];
+                if(stuff.length != 3){
+                    word = "";
+                }
+                else {
+                    word = stuff[2];
+                }
+                i++;
+                //Log.d("error",Integer.toString(i));
                 if(pun.equals("")){
                     if(!(cat.equals(""))){
                         collection.lastElement().add_cat(cat);
@@ -95,11 +133,12 @@ public class MainActivity extends AppCompatActivity{
                 //readerFile.close();
 
             }
+            is.close();
 
-        }catch(Exception err){
-            String curDir = System.getProperty("user.dir");
-
-            Log.d("error",curDir);
+        }catch(IOException ex){
+            //String curDir = System.getProperty("user.dir");
+            ex.printStackTrace();
+            //Log.d("error",curDir);
         }
 
 
@@ -144,63 +183,60 @@ public class MainActivity extends AppCompatActivity{
         }
         return puns;
     }
-    
+
+
     void make_cat_and_pun_vectors(){
-        for(int i = 0; i < collection.size(); i++){ //runs through every element of vector of pun obj
-            Vector<String> c4t = new Vector();
-            c4t = collection.elementAt(i).get_cat(); //creates vector of catrgories for specific pun
-            for(int j = 0; j < c4t.size(); i++){ //adds an element to pun vec and cat vec for each unique pair of cat:pun
+        catBase sdfg = collection.elementAt(4);
+        for(int i = 0; i < collection.size(); i++){
+            catBase collectionElement = collection.elementAt(i);
+            Vector<String> c4t = collectionElement.get_cat();
+            for(int j = 0; j < c4t.size(); j++){
                 categoryVector.addElement(c4t.elementAt(j).toLowerCase());
                 correspondingPuns.addElement(collection.elementAt(i).get_pun());
             }
         }
     }
-    
+
     void fillCategoryVectors(){
-        make_cat_and_pun_vectors();
-        for(int x = 0; x < categoryVector.size(); ++x){
-                if(categoryVector.elementAt(x).equals("pick up lines")){
-                    pickuplinesc4t.addElement(correspondingPuns.elementAt(x));
-                    continue;
-                }
-                if(categoryVector.elementAt(x).equals("food")){
-                    foodc4t.addElement(correspondingPuns.elementAt(x));
-                    continue;
-                }
-                if(categoryVector.elementAt(x).equals("science")){
-                    sciencec4t.addElement(correspondingPuns.elementAt(x));
-                    continue;
-                }
-                if(categoryVector.elementAt(x).equals("celebrities")){
-                    celebritiesc4t.addElement(correspondingPuns.elementAt(x));
-                    continue;
-                }
-                if(categoryVector.elementAt(x).equals("jokes")){
-                    jokesc4t.addElement(correspondingPuns.elementAt(x));
-                    continue;
-                }
-                if(categoryVector.elementAt(x).equals("pokemon")){
-                    pokemonc4t.addElement(correspondingPuns.elementAt(x));
-                    continue;
-                }
-                if(categoryVector.elementAt(x).equals("animals")){
-                    animalsc4t.addElement(correspondingPuns.elementAt(x));
-                    continue;
-                }
-                if(categoryVector.elementAt(x).equals("movies")){
-                    moviesc4t.addElement(correspondingPuns.elementAt(x));
-                    continue;
-                }
-               if(categoryVector.elementAt(x).equals("holiday")){
-                    holidayc4t.addElement(correspondingPuns.elementAt(x));
-                    continue;
-                }
+        this.make_cat_and_pun_vectors();
+        for(int x = 0; x < categoryVector.size(); x++){
+            if(categoryVector.elementAt(x).equals("pick up lines")){
+                pickuplinesc4t.addElement(correspondingPuns.elementAt(x));
+                //continue;
+            }
+            if(categoryVector.elementAt(x).equals("food")){
+                foodc4t.addElement(correspondingPuns.elementAt(x));
+                //continue;
+            }
+            if(categoryVector.elementAt(x).equals("science")){
+                sciencec4t.addElement(correspondingPuns.elementAt(x));
+                //continue;
+            }
+            if(categoryVector.elementAt(x).equals("celebrities")){
+                celebritiesc4t.addElement(correspondingPuns.elementAt(x));
+                //continue;
+            }
+            if(categoryVector.elementAt(x).equals("jokes")){
+                jokesc4t.addElement(correspondingPuns.elementAt(x));
+                //continue;
+            }
+            if(categoryVector.elementAt(x).equals("pokemon")){
+                pokemonc4t.addElement(correspondingPuns.elementAt(x));
+                //continue;
+            }
+            if(categoryVector.elementAt(x).equals("animals")){
+                animalsc4t.addElement(correspondingPuns.elementAt(x));
+                //continue;
+            }
+            if(categoryVector.elementAt(x).equals("movies")){
+                moviesc4t.addElement(correspondingPuns.elementAt(x));
+                //continue;
+            }
+            if(categoryVector.elementAt(x).equals("holiday")){
+                holidayc4t.addElement(correspondingPuns.elementAt(x));
+                //continue;
+            }
         }
-    }    
-    
-    void add_to_myPuns(String myPun){
-        collection.addElement(new catBase(myPun));
-        myPunsc4t.addElement(myPun);
     }
 
     @Override
@@ -208,26 +244,67 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
 
         screen = getWindowManager().getDefaultDisplay();
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
+        int buttonheight  = (int)(0.3*height);
+
+        Typeface buttonFont = Typeface.createFromAsset(getAssets(), "Fonts/CurseCasual.ttf");
+
 
         mainLayout = new LinearLayout(this);
         mainLayout.setOrientation(LinearLayout.VERTICAL);
+        mainLayout.setBackgroundColor(0xFFcde1f8);
+
+        ImageView title = new ImageView(this);
+        title.setImageResource(R.drawable.pungent);
+        //title.setLayoutParams(new LinearLayout.LayoutParams(width,(int)(0.3*height)));
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(width,(int)(0.3*height));
+        mainLayout.addView(title,lp);
+
 
         input = new EditText(getApplication());
-        input.setLayoutParams(new LinearLayout.LayoutParams(450,100));
+
         mainLayout.addView(input);
+        input.setLayoutParams(new LinearLayout.LayoutParams(450,200));
+
 
         pun_me = new Button(this);
-        pun_me.setText("Pun Me");
+        pun_me.getBackground().setColorFilter(0xFFfc5e5e, PorterDuff.Mode.MULTIPLY);
+        pun_me.setText("P u n  M e");
+        pun_me.setTextSize(25);
+        pun_me.setTypeface(buttonFont);
+        pun_me.setLayoutParams(new LinearLayout.LayoutParams(width,(int)(0.1*height)));
+        // LinearLayout.LayoutParams Params = pun_me.getLayoutParams();
+        //layoutParams.setMargins(marginInDp, marginInDp, marginInDp, marginInDp);
+        //myView.setLayoutParams(layoutParams);
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        params.setMargins(0, 0, 0, 0);
+        //pun_me.setLayoutParams(params);
+
+        pun_me.requestLayout();
+
         mainLayout.addView(pun_me);
 
+
         categories = new Button(this);
-        categories.setText("Categories");
+        categories.setText("C a t e g o r i e s");
+        categories.setTextSize(25);
+        categories.setTypeface(buttonFont);
+        categories.getBackground().setColorFilter(0xFFffcc00, PorterDuff.Mode.MULTIPLY);
+        categories.setLayoutParams(new LinearLayout.LayoutParams(width,(int)(0.1*height)));
         mainLayout.addView(categories);
 
         ranpun = new Button(this);
-        ranpun.setText("Random Pun");
+        ranpun.setText("R a n d o m  P u n");
+        ranpun.setTextSize(25);
+        ranpun.setTypeface(buttonFont);
+        ranpun.getBackground().setColorFilter(0xFF46b551, PorterDuff.Mode.MULTIPLY);
+        ranpun.setLayoutParams(new LinearLayout.LayoutParams(width,(int)(0.1*height)));
         mainLayout.addView(ranpun);
-
         uservector = new Vector();
 
         output = new TextView(this);
@@ -235,8 +312,10 @@ public class MainActivity extends AppCompatActivity{
 
         test = new TextView(this);
         mainLayout.addView(test);
-        parser();
-        fillCategoryVectors();
+        this.parser();
+        this.fillCategoryVectors();
+       // Log.d("cat vect",categoryVector.toString());
+       // Log.d("pun vect",correspondingPuns.toString());
 
         categories.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -283,7 +362,7 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 //String empty_input = null;
-                Random arand = new Random();
+                Random rand = new Random();
                 int rnd_num = Math.abs(rand.nextInt() % collection.size());
                 output.setText(collection.elementAt(rnd_num).get_pun());
             }
