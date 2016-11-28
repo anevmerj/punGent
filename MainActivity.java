@@ -238,6 +238,16 @@ public class MainActivity extends AppCompatActivity{
             }
         }
     }
+    
+    void add_to_myPuns(String myPun){
+        collection.addElement(new catBase(myPun));
+        myPunsc4t.addElement(myPun);
+        //FileOutputStream out = new FileOutputStream("myPuns.txt", true);
+        AssetManager am = getAssets();
+        OutputStream os = am.open("myPuns.txt");
+        os.write(myPun+",myPuns,\n");
+        os.close();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
