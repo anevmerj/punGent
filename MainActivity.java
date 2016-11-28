@@ -243,10 +243,16 @@ public class MainActivity extends AppCompatActivity{
         collection.addElement(new catBase(myPun));
         myPunsc4t.addElement(myPun);
         //FileOutputStream out = new FileOutputStream("myPuns.txt", true);
-        AssetManager am = getAssets();
-        OutputStream os = am.open("myPuns.txt");
-        os.write(myPun+",myPuns,\n");
-        os.close();
+        try{
+            AssetManager am = getAssets();
+            OutputStream os = am.open("myPuns.txt");
+            os.write(myPun+",myPuns,\n");
+            os.close();
+        }catch(IOException ex){
+            //String curDir = System.getProperty("user.dir");
+            ex.printStackTrace();
+            //Log.d("error",curDir);
+        }
     }
 
     @Override
