@@ -1,4 +1,4 @@
-package com.example.mirna.pungent;
+package com.example.shawnalee.pungen;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -71,11 +71,11 @@ public class MainActivity extends AppCompatActivity{
 
     static Context context;
 
-   //File file = Environment.getExternalStorageDirectory();
+    //File file = Environment.getExternalStorageDirectory();
 
     //File file = new File("C:\\Users\\mirna\\AndroidStudioProjects\\PunGent\\app\\src\\main\\res\\assets\\PunGen.csv");
 
-    public void parser(String fileName){
+    public void parser(){
 
         //String fileToRead = "C:\\Users\\mirna\\AndroidStudioProjects\\PunGent\\app\\src\\main\\res\\assets\\PunGen.csv";
         String sendToArray = null;
@@ -94,8 +94,8 @@ public class MainActivity extends AppCompatActivity{
 //                is = getAssets().open("test/"+fileNames);
 //            }
             AssetManager am = getAssets();
-            InputStream is = am.open(fileName);
-           // int size = is.available();
+            InputStream is = am.open("PunGen.txt");
+            // int size = is.available();
             //byte[] buffer = new byte[size];
             //is.read(buffer);
             //String text = new String();
@@ -105,6 +105,8 @@ public class MainActivity extends AppCompatActivity{
             BufferedReader br = new BufferedReader(readerFile);
             int i = 0;
             while((sendToArray = br.readLine()) != null){
+
+                //sendToArray = "Do you have any raisins? No then what about a date?,Pick up Lines,date\nWhat do elves learn in school? The Elf-abet!,Holiday,christmas\nYou've got to be kitten me.,Animals,kitten\n,,Kidding\n";
                 stuff = sendToArray.split(",");
                 pun = stuff[0];
                 cat = stuff[1];
@@ -236,16 +238,6 @@ public class MainActivity extends AppCompatActivity{
             }
         }
     }
-    
-    void add_to_myPuns(String myPun){
-        collection.addElement(new catBase(myPun));
-        myPunsc4t.addElement(myPun);
-        //FileOutputStream out = new FileOutputStream("myPuns.txt", true);
-        AssetManager am = getAssets();
-        OutputStream os = am.open("myPuns.txt");
-        os.write(myPun+",myPuns,\n");
-        os.close();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -257,7 +249,7 @@ public class MainActivity extends AppCompatActivity{
         display.getSize(size);
         int width = size.x;
         int height = size.y;
-        int buttonheight  = (int)(0.3*height);
+
 
         Typeface buttonFont = Typeface.createFromAsset(getAssets(), "Fonts/CurseCasual.ttf");
 
@@ -271,12 +263,14 @@ public class MainActivity extends AppCompatActivity{
         //title.setLayoutParams(new LinearLayout.LayoutParams(width,(int)(0.3*height)));
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(width,(int)(0.3*height));
         mainLayout.addView(title,lp);
+        String hinter = new String("Enter your new pun here!");
 
 
         input = new EditText(getApplication());
+        input.setHint("Enter your keyword or new pun here!");
 
         mainLayout.addView(input);
-        input.setLayoutParams(new LinearLayout.LayoutParams(450,200));
+        input.setLayoutParams(new LinearLayout.LayoutParams(width,200));
 
 
         pun_me = new Button(this);
@@ -322,8 +316,8 @@ public class MainActivity extends AppCompatActivity{
         mainLayout.addView(test);
         this.parser();
         this.fillCategoryVectors();
-       // Log.d("cat vect",categoryVector.toString());
-       // Log.d("pun vect",correspondingPuns.toString());
+        // Log.d("cat vect",categoryVector.toString());
+        // Log.d("pun vect",correspondingPuns.toString());
 
         categories.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -376,8 +370,8 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
-                                      setContentView(mainLayout);
-                                  }
+        setContentView(mainLayout);
+    }
 
   /*  public void onClick(View v){
         //categories.setId(i);
@@ -387,4 +381,4 @@ public class MainActivity extends AppCompatActivity{
         }
     }*/
 
-    }
+}
