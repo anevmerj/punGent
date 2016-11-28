@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity{
     void fillCategoryVectors(){
         make_cat_and_pun_vectors();
         for(int x = 0; x < categoryVector.size(); ++x){
-                            if(categoryVector.elementAt(x)=="pick up lines"){
+                if(categoryVector.elementAt(x).equals("pick up lines")){
                     pickuplinesc4t.addElement(correspondingPuns.elementAt(x));
                     continue;
                 }
