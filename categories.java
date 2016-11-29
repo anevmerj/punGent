@@ -1,4 +1,4 @@
-package com.example.mirna.pungent;
+package com.example.shawnalee.pungen;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
@@ -62,6 +62,8 @@ public class categories extends MainActivity {
         close = new Button(this);
         close.setText("Close");
         close.setLayoutParams(params);
+        close.setTypeface(buttonFont);
+        close.setTextSize(16);
         //LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         params.gravity = Gravity.CENTER;
         close.setLayoutParams(params);
@@ -313,13 +315,4 @@ public class categories extends MainActivity {
         setContentView(mainLayout);
     }
 
-    /*public void onPickuplines(View v) {
-        //categories.setId(i);
-        if (v.getId() == R.id.Bpickuplines) {
-            //Intent i = new Intent(getApplicationContext(), pickuplines.class);
-            //startActivity(i);
-            popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 10, 10);
-            popUpWindow.update(100, 100, 700, 500);  //postion x, position y, size x, size y
-        }
-    }*/
 }
