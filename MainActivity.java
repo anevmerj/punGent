@@ -1,4 +1,4 @@
-package com.example.mirna.pungent;
+package com.example.shawnalee.pungen;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -280,7 +280,7 @@ public class MainActivity extends AppCompatActivity{
         int height = size.y;
 
 
-        Typeface buttonFont = Typeface.createFromAsset(getAssets(), "Fonts/CurseCasual.ttf");
+        final Typeface buttonFont = Typeface.createFromAsset(getAssets(), "Fonts/CurseCasual.ttf");
 
 
         mainLayout = new LinearLayout(this);
@@ -344,6 +344,8 @@ public class MainActivity extends AppCompatActivity{
         close = new Button(this);
         close.setText("Close");
         close.setLayoutParams(params);
+        close.setTypeface(buttonFont);
+        close.setTextSize(16);
         LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         params2.gravity = Gravity.CENTER;
         close.setLayoutParams(params2);
@@ -351,6 +353,8 @@ public class MainActivity extends AppCompatActivity{
         ok = new Button(this);
         ok.setText("Ok");
         ok.setLayoutParams(params);
+        ok.setTypeface(buttonFont);
+        ok.setTextSize(16);
         //LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         params2.gravity = Gravity.CENTER;
         ok.setLayoutParams(params2);
@@ -358,6 +362,8 @@ public class MainActivity extends AppCompatActivity{
         cancel = new Button(this);
         cancel.setText("Cancel");
         cancel.setLayoutParams(params);
+        cancel.setTypeface(buttonFont);
+        cancel.setTextSize(16);
         //LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         params2.gravity = Gravity.CENTER;
         cancel.setLayoutParams(params2);
@@ -383,8 +389,6 @@ public class MainActivity extends AppCompatActivity{
         //containerLayout.addView(output);
 
         warning = new TextView(this);
-        warning.setText("Warning: Once pun is submitted, no changes will be permitted");
-        containerLayout2.addView(warning);
 
         test = new TextView(this);
         warning = new TextView(this);
@@ -431,8 +435,13 @@ public class MainActivity extends AppCompatActivity{
                     possiblePuns = punOut(user_input, collection);
                     randomPun = randomPunGenerator(possiblePuns);
                 }
-                popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 10, 10);
-                popUpWindow.update(100, 100, 700, 500);  //postion x, position y, size x, size y
+                output.setTextSize(25);
+                output.setTypeface(buttonFont);
+                output.setGravity(Gravity.CENTER_HORIZONTAL);
+                popUpWindow.setWidth(700);
+                popUpWindow.setHeight(500);
+                popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
+                //popUpWindow.update(100, 100, 700, 500);  //postion x, position y, size x, size y
                 output.setText(randomPun);
             }
         });
@@ -444,8 +453,13 @@ public class MainActivity extends AppCompatActivity{
                 Random rand = new Random();
                 int rnd_num = Math.abs(rand.nextInt() % collection.size());
                 output.setText(collection.elementAt(rnd_num).get_pun());
-                popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 10, 10);
-                popUpWindow.update(100, 100, 700, 500);  //postion x, position y, size x, size y
+                popUpWindow.setWidth(700);
+                popUpWindow.setHeight(500);
+                popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
+                //popUpWindow.update(100, 100, 700, 500);  //postion x, position y, size x, size y
+                output.setTextSize(25);
+                output.setTypeface(buttonFont);
+                output.setGravity(Gravity.CENTER_HORIZONTAL);
             }
         });
 
@@ -475,8 +489,14 @@ public class MainActivity extends AppCompatActivity{
         my_puns.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popUpWindow2.showAtLocation(mainLayout, Gravity.CENTER, 10, 10);
-                popUpWindow2.update(100, 100, 700, 500);  //postion x, position y, size x, size y
+                popUpWindow2.setWidth(700);
+                popUpWindow2.setHeight(600);
+                popUpWindow2.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
+                warning.setTextSize(25);
+                warning.setTypeface(buttonFont);
+                warning.setGravity(Gravity.CENTER_HORIZONTAL);
+                warning.setText("Warning: Once pun is submitted, it cannot be pundone");
+               // popUpWindow2.update(100, 100, 700, 500);  //postion x, position y, size x, size y
             }
         });
 
@@ -490,6 +510,7 @@ public class MainActivity extends AppCompatActivity{
         //mainLayout.addView(test);
         containerLayout.addView(output);
         containerLayout.addView(close);
+        containerLayout2.addView(warning);
         containerLayout2.addView(ok);
         containerLayout2.addView(cancel);
         popUpWindow.setContentView(containerLayout);
