@@ -1,46 +1,63 @@
-package com.example.shawnalee.pungen;
+package com.example.mirna.pungent;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.content.Intent;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Button;
 import android.view.Display;
-import android.util.Log;
 import android.content.res.AssetManager;
 import android.content.Context;
-import android.os.Environment;
 import android.graphics.Point;
-import android.widget.GridLayout.LayoutParams;
+import android.graphics.Color;
+//import android.widget.GridLayout.LayoutParams;
 import android.graphics.Typeface;
 import android.widget.ImageView;
 import android.graphics.PorterDuff;
+import android.view.ViewGroup.LayoutParams;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.Reader;
+import java.io.FileOutputStream;
 import java.lang.String;
+
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import java.util.Vector;
 import java.util.Random;
-import java.io.StringReader;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.InputStreamReader;
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity{
 
-
     EditText input;
+
     LinearLayout mainLayout;
+    LinearLayout containerLayout;
+    LinearLayout containerLayout2;
+
+    LayoutParams layoutParams;
+    PopupWindow popUpWindow;
+
+    LayoutParams layoutParams2;
+    PopupWindow popUpWindow2;
+
     Button pun_me;
     Button categories;
     Button ranpun;
+    Button close;
+    Button ok;
+    Button my_puns;
+    Button inv;
+    Button cancel;
 
     TextView output;
+    TextView warning;
     TextView test;
 
     Vector uservector;
@@ -238,15 +255,15 @@ public class MainActivity extends AppCompatActivity{
             }
         }
     }
-    
+
     void add_to_myPuns(String myPun){
         collection.addElement(new catBase(myPun));
         myPunsc4t.addElement(myPun);
         //FileOutputStream out = new FileOutputStream("myPuns.txt", true);
         try{
             AssetManager am = getAssets();
-            OutputStream os = am.open("myPuns.txt");
-            os.write(myPun+",myPuns,\n");
+            OutputStream os = new FileOutputStream("myPuns.txt");
+            os.write((myPun+",myPuns,\n").getBytes());
             os.close();
         }catch(IOException ex){
             //String curDir = System.getProperty("user.dir");
@@ -274,6 +291,19 @@ public class MainActivity extends AppCompatActivity{
         mainLayout.setOrientation(LinearLayout.VERTICAL);
         mainLayout.setBackgroundColor(0xFFcde1f8);
 
+        containerLayout2 = new LinearLayout(this);
+        popUpWindow2 = new PopupWindow(this);
+        layoutParams2 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        containerLayout2.setOrientation(LinearLayout.VERTICAL);
+        popUpWindow2.setFocusable(true);
+
+        containerLayout = new LinearLayout(this);
+        popUpWindow = new PopupWindow(this);
+        layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        containerLayout.setOrientation(LinearLayout.VERTICAL);
+        popUpWindow.setFocusable(true);
+
+
         ImageView title = new ImageView(this);
         title.setImageResource(R.drawable.pungent);
         //title.setLayoutParams(new LinearLayout.LayoutParams(width,(int)(0.3*height)));
@@ -288,6 +318,16 @@ public class MainActivity extends AppCompatActivity{
         mainLayout.addView(input);
         input.setLayoutParams(new LinearLayout.LayoutParams(width,200));
 
+        inv = new Button(this);
+        inv.setBackgroundColor(Color.TRANSPARENT);
+        //inv.setVisibility(View.INVISIBLE);
+
+        my_puns = new Button(this);
+        my_puns.getBackground().setColorFilter(0xFF41afe8, PorterDuff.Mode.MULTIPLY);
+        my_puns.setText("A d d  T o  M y  P u n s");
+        my_puns.setTextSize(25);
+        my_puns.setTypeface(buttonFont);
+        my_puns.setLayoutParams(new LinearLayout.LayoutParams(width,(int)(0.1*height)));
 
         pun_me = new Button(this);
         pun_me.getBackground().setColorFilter(0xFFfc5e5e, PorterDuff.Mode.MULTIPLY);
@@ -295,18 +335,36 @@ public class MainActivity extends AppCompatActivity{
         pun_me.setTextSize(25);
         pun_me.setTypeface(buttonFont);
         pun_me.setLayoutParams(new LinearLayout.LayoutParams(width,(int)(0.1*height)));
-        // LinearLayout.LayoutParams Params = pun_me.getLayoutParams();
-        //layoutParams.setMargins(marginInDp, marginInDp, marginInDp, marginInDp);
-        //myView.setLayoutParams(layoutParams);
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         params.setMargins(0, 0, 0, 0);
-        //pun_me.setLayoutParams(params);
 
         pun_me.requestLayout();
 
         mainLayout.addView(pun_me);
+        mainLayout.addView(my_puns);
+        mainLayout.addView(inv);
 
+        close = new Button(this);
+        close.setText("Close");
+        close.setLayoutParams(params);
+        LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        params2.gravity = Gravity.CENTER;
+        close.setLayoutParams(params2);
+
+        ok = new Button(this);
+        ok.setText("Ok");
+        ok.setLayoutParams(params);
+        //LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        params2.gravity = Gravity.CENTER;
+        ok.setLayoutParams(params2);
+
+        cancel = new Button(this);
+        cancel.setText("Cancel");
+        cancel.setLayoutParams(params);
+        //LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        params2.gravity = Gravity.CENTER;
+        cancel.setLayoutParams(params2);
 
         categories = new Button(this);
         categories.setText("C a t e g o r i e s");
@@ -326,10 +384,15 @@ public class MainActivity extends AppCompatActivity{
         uservector = new Vector();
 
         output = new TextView(this);
-        mainLayout.addView(output);
+        //containerLayout.addView(output);
+
+        warning = new TextView(this);
+        warning.setText("Warning: Once pun is submitted, no changes will be permitted");
+        containerLayout2.addView(warning);
 
         test = new TextView(this);
-        mainLayout.addView(test);
+        warning = new TextView(this);
+
         this.parser();
         this.fillCategoryVectors();
         // Log.d("cat vect",categoryVector.toString());
@@ -372,6 +435,8 @@ public class MainActivity extends AppCompatActivity{
                     possiblePuns = punOut(user_input, collection);
                     randomPun = randomPunGenerator(possiblePuns);
                 }
+                popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 10, 10);
+                popUpWindow.update(100, 100, 700, 500);  //postion x, position y, size x, size y
                 output.setText(randomPun);
             }
         });
@@ -383,18 +448,56 @@ public class MainActivity extends AppCompatActivity{
                 Random rand = new Random();
                 int rnd_num = Math.abs(rand.nextInt() % collection.size());
                 output.setText(collection.elementAt(rnd_num).get_pun());
+                popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 10, 10);
+                popUpWindow.update(100, 100, 700, 500);  //postion x, position y, size x, size y
             }
         });
 
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popUpWindow.dismiss();
+            }
+        });
+
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                user_input = input.getText().toString();
+                add_to_myPuns(user_input);
+                popUpWindow2.dismiss();
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popUpWindow2.dismiss();
+            }
+        });
+
+        my_puns.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popUpWindow2.showAtLocation(mainLayout, Gravity.CENTER, 10, 10);
+                popUpWindow2.update(100, 100, 700, 500);  //postion x, position y, size x, size y
+            }
+        });
+
+        inv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //test.setText("Button works");
+            }
+        });
+
+        //mainLayout.addView(test);
+        containerLayout.addView(output);
+        containerLayout.addView(close);
+        containerLayout2.addView(ok);
+        containerLayout2.addView(cancel);
+        popUpWindow.setContentView(containerLayout);
+        popUpWindow2.setContentView(containerLayout2);
         setContentView(mainLayout);
     }
-
-  /*  public void onClick(View v){
-        //categories.setId(i);
-        if(v.getId() == R.id.BCat){
-            Intent i = new Intent(getApplicationContext(), categories.class);
-            startActivity(i);
-        }
-    }*/
-
 }
