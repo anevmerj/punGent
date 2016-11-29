@@ -157,6 +157,9 @@ public class categories extends MainActivity {
                 popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
                 popUpWindow.update(0, 0, 700, 500);  //postion x, position y, size x, size y
                 String pun = randomPunGenerator(pickuplinesc4t);
+                ran_pun.setTextSize(25);
+                ran_pun.setTypeface(buttonFont);
+                ran_pun.setGravity(Gravity.CENTER_HORIZONTAL);
                 ran_pun.setText(pun);
             }
         });
@@ -181,6 +184,10 @@ public class categories extends MainActivity {
                 popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
                 popUpWindow.update(0, 0, 700, 500);  //postion x, position y, size x, size y
                 String pun = randomPunGenerator(sciencec4t);
+                ran_pun.setTextSize(25);
+                ran_pun.setTypeface(buttonFont);
+                ran_pun.setGravity(Gravity.CENTER_HORIZONTAL);
+
                 ran_pun.setText(pun);
             }
         });
@@ -191,6 +198,9 @@ public class categories extends MainActivity {
                 popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
                 popUpWindow.update(0, 0, 700, 500);  //postion x, position y, size x, size y
                 String pun = randomPunGenerator(celebritiesc4t);
+                ran_pun.setTextSize(25);
+                ran_pun.setTypeface(buttonFont);
+                ran_pun.setGravity(Gravity.CENTER_HORIZONTAL);
                 ran_pun.setText(pun);
             }
         });
@@ -201,6 +211,9 @@ public class categories extends MainActivity {
                 popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
                 popUpWindow.update(0, 0, 700, 500);  //postion x, position y, size x, size y
                 String pun = randomPunGenerator(jokesc4t);
+                ran_pun.setTextSize(25);
+                ran_pun.setTypeface(buttonFont);
+                ran_pun.setGravity(Gravity.CENTER_HORIZONTAL);
                 ran_pun.setText(pun);
             }
         });
@@ -211,6 +224,9 @@ public class categories extends MainActivity {
                 popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
                 popUpWindow.update(0, 0, 700, 500);  //postion x, position y, size x, size y
                 String pun = randomPunGenerator(animalsc4t);
+                ran_pun.setTextSize(25);
+                ran_pun.setTypeface(buttonFont);
+                ran_pun.setGravity(Gravity.CENTER_HORIZONTAL);
                 ran_pun.setText(pun);
             }
         });
@@ -221,6 +237,9 @@ public class categories extends MainActivity {
                 popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
                 popUpWindow.update(0, 0, 700, 500);  //postion x, position y, size x, size y
                 String pun = randomPunGenerator(moviesc4t);
+                ran_pun.setTextSize(25);
+                ran_pun.setTypeface(buttonFont);
+                ran_pun.setGravity(Gravity.CENTER_HORIZONTAL);
                 ran_pun.setText(pun);
             }
         });
@@ -231,6 +250,9 @@ public class categories extends MainActivity {
                 popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
                 popUpWindow.update(0, 0, 700, 500);  //postion x, position y, size x, size y
                 String pun = randomPunGenerator(holidayc4t);
+                ran_pun.setTextSize(25);
+                ran_pun.setTypeface(buttonFont);
+                ran_pun.setGravity(Gravity.CENTER_HORIZONTAL);
                 ran_pun.setText(pun);
             }
         });
@@ -241,6 +263,9 @@ public class categories extends MainActivity {
                 popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
                 popUpWindow.update(0, 0, 700, 500);  //postion x, position y, size x, size y
                 String pun = randomPunGenerator(pokemonc4t);
+                ran_pun.setTextSize(25);
+                ran_pun.setTypeface(buttonFont);
+                ran_pun.setGravity(Gravity.CENTER_HORIZONTAL);
                 ran_pun.setText(pun);
             }
         });
