@@ -259,9 +259,14 @@ public class MainActivity extends AppCompatActivity{
     void add_to_myPuns(String myPun){
         collection.addElement(new catBase(myPun));
         myPunsc4t.addElement(myPun);
-        FileOutputStream fos = openFileOutput("myPuns.txt", Context.MODE_APPEND);
-        fos.write((myPun+",myPuns,").getBytes());
-        fos.close();
+        FileOutputStream fos = null;
+        try{
+            FileOutputStream fos = openFileOutput("myPuns.txt", Context.MODE_APPEND);
+            fos.write((myPun+",myPuns,").getBytes());
+        }catch(IOException ex){
+            ex.printStackTrace();
+        }finally{
+            fos.close();}            
     }
 
     @Override
