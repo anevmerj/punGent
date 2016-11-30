@@ -347,6 +347,7 @@ public class MainActivity extends AppCompatActivity{
         close.setTypeface(buttonFont);
         close.setTextSize(16);
         close.setTextColor(0xffcccccc);
+        //close.setBackgroundColor(Color.TRANSPARENT);
         LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         //params2.setMargins(50, 50, 50, 100); //left, top, right, bottom
         params2.gravity = Gravity.CENTER;
@@ -419,11 +420,13 @@ public class MainActivity extends AppCompatActivity{
 
                 user_input = input.getText().toString();
 
-                output.setTextSize(25);
-                output.setTypeface(buttonFont);
-                output.setGravity(Gravity.CENTER_HORIZONTAL);
-                popUpWindow.setWidth(700);
-                popUpWindow.setHeight(500);
+                close.setTextSize(25);
+                close.setTypeface(buttonFont);
+
+                popUpWindow.getBackground().setColorFilter(0xFFFFFF, PorterDuff.Mode.MULTIPLY);
+                //output.setGravity(Gravity.CENTER_HORIZONTAL);
+               // popUpWindow.setWidth(700);
+                //popUpWindow.setHeight(500);
 
                 if( user_input.equals("Craig") || user_input.equals("craig")){
                     Uri uriUrl = Uri.parse("https://www.youtube.com/watch?v=hbZZfQb4Olw");
@@ -433,21 +436,21 @@ public class MainActivity extends AppCompatActivity{
                 else if( user_input.equals("Janice") || user_input.equals("janice")){
                     randomPun = "Alright!";
                     popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
-                    output.setText(randomPun);
+                    close.setText(randomPun);
                 }
                 else if(!(error1 = primaryErrorCheck(user_input))){
                     randomPun = "Your input must contain all letters";
                     popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
-                    output.setText(randomPun);
+                    close.setText(randomPun);
                 } else if(!(error2 = Error_check(user_input, collection))){
                     randomPun = "Sorry, this word is not in our database.";
                     popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
-                    output.setText(randomPun);
+                    close.setText(randomPun);
                 } else {
                     possiblePuns = punOut(user_input, collection);
                     randomPun = randomPunGenerator(possiblePuns);
                     popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
-                    output.setText(randomPun);
+                    close.setText(randomPun);
                 }
             }
         });
@@ -457,19 +460,26 @@ public class MainActivity extends AppCompatActivity{
             public void onClick(View v) {
                 Random rand = new Random();
                 int rnd_num = Math.abs(rand.nextInt() % collection.size());
-                output.setText(collection.elementAt(rnd_num).get_pun());
-                popUpWindow.setWidth(700);
-                popUpWindow.setHeight(500);
-                popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
-                output.setTextSize(25);
-                output.setTypeface(buttonFont);
-                output.setGravity(Gravity.CENTER_HORIZONTAL);
+                close.setText(collection.elementAt(rnd_num).get_pun());
+                //output.setText(collection.elementAt(rnd_num).get_pun());
+                //popUpWindow.setWidth(700);
+                //popUpWindow.setHeight(500);
+                popUpWindow.getBackground().setColorFilter(0xFFFFFF, PorterDuff.Mode.MULTIPLY);
+                popUpWindow.showAtLocation(mainLayout, Gravity.CENTER,0, 0);
+               // popUpWindow.update(0, 0, Gravity.CENTER_HORIZONTAL, Gravity.CENTER_VERTICAL);  //postion x, position y, size x, size y
+                close.setTextSize(25);
+                close.setTypeface(buttonFont);
+                //close.setGravity(Gravity.CENTER_HORIZONTAL);
+                //output.setTextSize(25);
+                //output.setTypeface(buttonFont);
+                //output.setGravity(Gravity.CENTER_HORIZONTAL);
             }
         });
 
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+               // if(user_input.length() < 90)
                 input.setText("");
                 popUpWindow.dismiss();
             }
@@ -479,8 +489,21 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 user_input = input.getText().toString();
-                add_to_myPuns(user_input);
-                input.setText("");
+               // String word;
+                /*if(user_input.length() > 90){
+                    String word = "You input is too long";
+                    output.setText(word);
+                    popUpWindow.setWidth(700);
+                    popUpWindow.setHeight(500);
+                    popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
+                    output.setTextSize(25);
+                    output.setTypeface(buttonFont);
+                    output.setGravity(Gravity.CENTER_HORIZONTAL);
+                }
+                else {}*/
+                    add_to_myPuns(user_input);
+                    input.setText("");
+
                 popUpWindow2.dismiss();
             }
         });
@@ -521,7 +544,8 @@ public class MainActivity extends AppCompatActivity{
         });
 
         //mainLayout.addView(test);
-        containerLayout.addView(output);
+       // containerLayout.addView(output);
+
         containerLayout.addView(close);
         containerLayout2.addView(warning);
         containerLayout2.addView(ok);
