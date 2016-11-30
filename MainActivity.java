@@ -433,6 +433,12 @@ public class MainActivity extends AppCompatActivity{
                 //stringinput.setText(user_input);
 
                 //user_input = user_input.toLowerCase();
+                output.setTextSize(25);
+                output.setTypeface(buttonFont);
+                output.setGravity(Gravity.CENTER_HORIZONTAL);
+                popUpWindow.setWidth(700);
+                popUpWindow.setHeight(500);
+
                 if( user_input.equals("Craig") || user_input.equals("craig")){
                     Uri uriUrl = Uri.parse("https://www.youtube.com/watch?v=hbZZfQb4Olw");
                     Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
@@ -440,30 +446,15 @@ public class MainActivity extends AppCompatActivity{
                 }
                 else if(!(error1 = primaryErrorCheck(user_input))){
                     randomPun = "Your input is not a word!";
-                    output.setTextSize(25);
-                    output.setTypeface(buttonFont);
-                    output.setGravity(Gravity.CENTER_HORIZONTAL);
-                    popUpWindow.setWidth(700);
-                    popUpWindow.setHeight(500);
                     popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
                     output.setText(randomPun);
                 } else if(!(error2 = Error_check(user_input, collection))){
                     randomPun = "Sorry, this word is not in our database.";
-                    output.setTextSize(25);
-                    output.setTypeface(buttonFont);
-                    output.setGravity(Gravity.CENTER_HORIZONTAL);
-                    popUpWindow.setWidth(700);
-                    popUpWindow.setHeight(500);
                     popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
                     output.setText(randomPun);
                 } else {
                     possiblePuns = punOut(user_input, collection);
                     randomPun = randomPunGenerator(possiblePuns);
-                    output.setTextSize(25);
-                    output.setTypeface(buttonFont);
-                    output.setGravity(Gravity.CENTER_HORIZONTAL);
-                    popUpWindow.setWidth(700);
-                    popUpWindow.setHeight(500);
                     popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
                     output.setText(randomPun);
                 }
