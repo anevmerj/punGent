@@ -449,6 +449,7 @@ public class MainActivity extends AppCompatActivity{
                 popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
                 //popUpWindow.update(100, 100, 700, 500);  //postion x, position y, size x, size y
                 output.setText(randomPun);
+                input.setText("");
             }
         });
 
@@ -502,6 +503,7 @@ public class MainActivity extends AppCompatActivity{
                 warning.setTypeface(buttonFont);
                 warning.setGravity(Gravity.CENTER_HORIZONTAL);
                 warning.setText("Warning: Once pun is submitted, it cannot be pundone");
+                input.setText("");
                 // popUpWindow2.update(100, 100, 700, 500);  //postion x, position y, size x, size y
             }
         });
