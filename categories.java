@@ -1,4 +1,5 @@
-package com.example.shawnalee.pungen;
+package com.example.mirna.pungent;
+
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
@@ -60,12 +61,14 @@ public class categories extends MainActivity {
         params.setMargins(0, 0, 0, 0);
 
         close = new Button(this);
-        close.setText("Close");
+       // close.setText("Close");
         close.setLayoutParams(params);
         close.setTypeface(buttonFont);
-        close.setTextSize(16);
+        close.setTextSize(25);
+        close.setTextColor(0xffcccccc);
         //LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         params.gravity = Gravity.CENTER;
+        //params.gravity = Gravity.BOTTOM;
         close.setLayoutParams(params);
 
 
@@ -163,28 +166,30 @@ public class categories extends MainActivity {
         pickuplines.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popUpWindow.setWidth(700);
-                popUpWindow.setHeight(500);
+                //popUpWindow.setWidth(700);
+               //popUpWindow.setHeight(500);
+                popUpWindow.getBackground().setColorFilter(0xFFFFFF, PorterDuff.Mode.MULTIPLY);
                 popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
                 String pun = randomPunGenerator(pickuplinesc4t);
-                ran_pun.setTextSize(25);
-                ran_pun.setTypeface(buttonFont);
-                ran_pun.setGravity(Gravity.CENTER_HORIZONTAL);
-                ran_pun.setText(pun);
+                //close.setTextSize(25);
+                //ran_pun.setTypeface(buttonFont);
+                //ran_pun.setGravity(Gravity.CENTER_HORIZONTAL);
+                close.setText(pun);
             }
         });
 
         food.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popUpWindow.setWidth(700);
-                popUpWindow.setHeight(500);
+                //popUpWindow.setWidth(700);
+                //popUpWindow.setHeight(500);
+                popUpWindow.getBackground().setColorFilter(0xFFFFFF, PorterDuff.Mode.MULTIPLY);
                 popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
                 String pun = randomPunGenerator(foodc4t);
-                ran_pun.setText(pun);
-                ran_pun.setTextSize(25);
-                ran_pun.setTypeface(buttonFont);
-                ran_pun.setGravity(Gravity.CENTER_HORIZONTAL);
+                close.setText(pun);
+               // ran_pun.setTextSize(25);
+                //ran_pun.setTypeface(buttonFont);
+                //ran_pun.setGravity(Gravity.CENTER_HORIZONTAL);
 
             }
         });
@@ -192,113 +197,121 @@ public class categories extends MainActivity {
         science.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popUpWindow.setWidth(700);
-                popUpWindow.setHeight(500);
+                //popUpWindow.setWidth(700);
+                //popUpWindow.setHeight(500);
+                popUpWindow.getBackground().setColorFilter(0xFFFFFF, PorterDuff.Mode.MULTIPLY);
                 popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
                 String pun = randomPunGenerator(sciencec4t);
-                ran_pun.setTextSize(25);
-                ran_pun.setTypeface(buttonFont);
-                ran_pun.setGravity(Gravity.CENTER_HORIZONTAL);
+                //ran_pun.setTextSize(25);
+                //ran_pun.setTypeface(buttonFont);
+                //ran_pun.setGravity(Gravity.CENTER_HORIZONTAL);
 
-                ran_pun.setText(pun);
+                close.setText(pun);
             }
         });
 
         celebrities.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popUpWindow.setWidth(700);
-                popUpWindow.setHeight(500);
+                //popUpWindow.setWidth(700);
+                //popUpWindow.setHeight(500);
+                popUpWindow.getBackground().setColorFilter(0xFFFFFF, PorterDuff.Mode.MULTIPLY);
                 popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
                 String pun = randomPunGenerator(celebritiesc4t);
-                ran_pun.setTextSize(25);
-                ran_pun.setTypeface(buttonFont);
-                ran_pun.setGravity(Gravity.CENTER_HORIZONTAL);
-                ran_pun.setText(pun);
+               // ran_pun.setTextSize(25);
+                //ran_pun.setTypeface(buttonFont);
+                //ran_pun.setGravity(Gravity.CENTER_HORIZONTAL);
+                close.setText(pun);
             }
         });
 
         jokes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popUpWindow.setWidth(700);
-                popUpWindow.setHeight(500);
+                //popUpWindow.setWidth(700);
+                //popUpWindow.setHeight(500);
+                popUpWindow.getBackground().setColorFilter(0xFFFFFF, PorterDuff.Mode.MULTIPLY);
                 popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
                 String pun = randomPunGenerator(jokesc4t);
-                ran_pun.setTextSize(25);
-                ran_pun.setTypeface(buttonFont);
-                ran_pun.setGravity(Gravity.CENTER_HORIZONTAL);
-                ran_pun.setText(pun);
+                //ran_pun.setTextSize(25);
+                //ran_pun.setTypeface(buttonFont);
+                //ran_pun.setGravity(Gravity.CENTER_HORIZONTAL);
+                close.setText(pun);
             }
         });
 
         animals.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popUpWindow.setWidth(700);
-                popUpWindow.setHeight(500);
+               // popUpWindow.setWidth(700);
+                //popUpWindow.setHeight(500);
+                popUpWindow.getBackground().setColorFilter(0xFFFFFF, PorterDuff.Mode.MULTIPLY);
                 popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
                 String pun = randomPunGenerator(animalsc4t);
-                ran_pun.setTextSize(25);
-                ran_pun.setTypeface(buttonFont);
-                ran_pun.setGravity(Gravity.CENTER_HORIZONTAL);
-                ran_pun.setText(pun);
+               // ran_pun.setTextSize(25);
+                //ran_pun.setTypeface(buttonFont);
+               // ran_pun.setGravity(Gravity.CENTER_HORIZONTAL);
+                close.setText(pun);
             }
         });
 
         movies.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popUpWindow.setWidth(700);
-                popUpWindow.setHeight(500);
+                //popUpWindow.setWidth(700);
+                //popUpWindow.setHeight(500);
+                popUpWindow.getBackground().setColorFilter(0xFFFFFF, PorterDuff.Mode.MULTIPLY);
                 popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
                 String pun = randomPunGenerator(moviesc4t);
-                ran_pun.setTextSize(25);
-                ran_pun.setTypeface(buttonFont);
-                ran_pun.setGravity(Gravity.CENTER_HORIZONTAL);
-                ran_pun.setText(pun);
+                //ran_pun.setTextSize(25);
+                //ran_pun.setTypeface(buttonFont);
+               // ran_pun.setGravity(Gravity.CENTER_HORIZONTAL);
+                close.setText(pun);
             }
         });
 
         holiday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popUpWindow.setWidth(700);
-                popUpWindow.setHeight(500);
+                //popUpWindow.setWidth(700);
+                //popUpWindow.setHeight(500);
+                popUpWindow.getBackground().setColorFilter(0xFFFFFF, PorterDuff.Mode.MULTIPLY);
                 popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
                 String pun = randomPunGenerator(holidayc4t);
-                ran_pun.setTextSize(25);
-                ran_pun.setTypeface(buttonFont);
-                ran_pun.setGravity(Gravity.CENTER_HORIZONTAL);
-                ran_pun.setText(pun);
+                //ran_pun.setTextSize(25);
+                //ran_pun.setTypeface(buttonFont);
+                //ran_pun.setGravity(Gravity.CENTER_HORIZONTAL);
+                close.setText(pun);
             }
         });
 
         pokemon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popUpWindow.setWidth(700);
-                popUpWindow.setHeight(500);
+               // popUpWindow.setWidth(700);
+                //popUpWindow.setHeight(500);
+                popUpWindow.getBackground().setColorFilter(0xFFFFFF, PorterDuff.Mode.MULTIPLY);
                 popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
                 String pun = randomPunGenerator(pokemonc4t);
-                ran_pun.setTextSize(25);
-                ran_pun.setTypeface(buttonFont);
-                ran_pun.setGravity(Gravity.CENTER_HORIZONTAL);
-                ran_pun.setText(pun);
+                //ran_pun.setTextSize(25);
+                //ran_pun.setTypeface(buttonFont);
+                //ran_pun.setGravity(Gravity.CENTER_HORIZONTAL);
+                close.setText(pun);
             }
         });
 
         myPuns.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popUpWindow.setWidth(700);
-                popUpWindow.setHeight(500);
-                popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
+                //popUpWindow.setWidth(700);
+                //popUpWindow.setHeight(500);
+                popUpWindow.getBackground().setColorFilter(0xFFFFFF, PorterDuff.Mode.MULTIPLY);
+                popUpWindow.showAtLocation(mainLayout, Gravity.CENTER,0, 0);
                 String pun = randomPunGenerator(myPunsc4t);
-                ran_pun.setTextSize(25);
-                ran_pun.setTypeface(buttonFont);
-                ran_pun.setGravity(Gravity.CENTER_HORIZONTAL);
-                ran_pun.setText(pun);
+                //ran_pun.setTextSize(25);
+                //ran_pun.setTypeface(buttonFont);
+                //ran_pun.setGravity(Gravity.CENTER_HORIZONTAL);
+                close.setText(pun);
             }
         });
 
@@ -309,7 +322,7 @@ public class categories extends MainActivity {
             }
         });
 
-        containerLayout.addView(ran_pun);
+        //containerLayout.addView(ran_pun);
         containerLayout.addView(close);
         popUpWindow.setContentView(containerLayout);
         setContentView(mainLayout);
