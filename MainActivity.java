@@ -1,4 +1,4 @@
-package com.example.shawnalee.pungen;
+package com.example.mirna.pungent;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +19,8 @@ import android.graphics.Typeface;
 import android.widget.ImageView;
 import android.graphics.PorterDuff;
 import android.view.ViewGroup.LayoutParams;
+import android.net.Uri;
+
 
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
@@ -65,6 +67,7 @@ public class MainActivity extends AppCompatActivity{
     Vector<catBase> collection = new Vector();
     int i = 0; //id for categories button
     int k = 0;
+    int count = 0;
 
     //CATEGORIES STUFF STARTS
     Vector<String> categoryVector = new Vector();
@@ -170,6 +173,7 @@ public class MainActivity extends AppCompatActivity{
 
     boolean primaryErrorCheck(String user_input){
         boolean errorFlag = true;
+        user_input = user_input.replaceAll("\\s+","");
         for(int i = 0; i < user_input.length(); i++)
         {
             if(!(Character.isLetter(user_input.charAt(i))))
@@ -404,7 +408,9 @@ public class MainActivity extends AppCompatActivity{
                 categories.setId(i);
                 if(v.getId() == i){
                     Intent i = new Intent(getApplicationContext(), categories.class);
+                    //i.putExtra(myPunsc4t);
                     startActivity(i);
+
                 }
             }
         });
@@ -496,14 +502,21 @@ public class MainActivity extends AppCompatActivity{
                 warning.setTypeface(buttonFont);
                 warning.setGravity(Gravity.CENTER_HORIZONTAL);
                 warning.setText("Warning: Once pun is submitted, it cannot be pundone");
-               // popUpWindow2.update(100, 100, 700, 500);  //postion x, position y, size x, size y
+                // popUpWindow2.update(100, 100, 700, 500);  //postion x, position y, size x, size y
             }
         });
 
         inv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //test.setText("Button works");
+                count++;
+                if(count == 5) {
+                    Uri uriUrl = Uri.parse("https://lucky1quotes.wordpress.com/");
+                    Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+                    startActivity(launchBrowser);
+                    count = 0;
+                }
+                //test.setText(count);
             }
         });
 
