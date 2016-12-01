@@ -1,4 +1,4 @@
-package com.example.shawnalee.pungen;
+package com.example.mirna.pungent;
 
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -45,12 +45,16 @@ public class MainActivity extends AppCompatActivity{
     LinearLayout mainLayout;
     LinearLayout containerLayout;
     LinearLayout containerLayout2;
+    LinearLayout containerLayout3;
 
     LayoutParams layoutParams;
     PopupWindow popUpWindow;
 
     LayoutParams layoutParams2;
     PopupWindow popUpWindow2;
+
+    LayoutParams layoutParams3;
+    PopupWindow popUpWindow3;
 
     Button pun_me;
     Button categories;
@@ -60,6 +64,7 @@ public class MainActivity extends AppCompatActivity{
     Button my_puns;
     Button inv;
     Button cancel;
+    Button image;
 
     TextView output;
     TextView warning;
@@ -71,8 +76,11 @@ public class MainActivity extends AppCompatActivity{
     int i = 0; //id for categories button
     int k = 0;
     int count = 0;
-    static boolean has_started = false;
-    static int first_time = 1;
+
+    //*******************ALEXEI***********
+    //static boolean has_started = false;
+    //static int first_time = 1;
+    //**************************************
 
     //CATEGORIES STUFF STARTS
     static Vector<String> categoryVector = new Vector();
@@ -97,7 +105,57 @@ public class MainActivity extends AppCompatActivity{
     static Context context;
 
 
-    public void parser(String fileName){
+    public void parser(){
+        String sendToArray = null;
+        String[] stuff = new String[3];
+        String pun;
+        String cat;
+        String word;
+
+        try{
+            AssetManager am = getAssets();
+            InputStream is = am.open("PunGen.txt");
+            InputStreamReader readerFile = new InputStreamReader(is);
+            BufferedReader br = new BufferedReader(readerFile);
+            int i = 0;
+            while((sendToArray = br.readLine()) != null){
+
+                stuff = sendToArray.split(",");
+                pun = stuff[0];
+                cat = stuff[1];
+                if(stuff.length != 3){
+                    word = "";
+                }
+                else {
+                    word = stuff[2];
+                }
+                i++;
+                if(pun.equals("")){
+                    if(!(cat.equals(""))){
+                        collection.lastElement().add_cat(cat);
+                    }
+                    if(!(word.equals(""))){
+                        collection.lastElement().add_word(word);
+                    }
+
+                }
+                else{
+                    collection.addElement(new catBase(cat,pun,word));
+                }
+                //readerFile.close();
+
+            }
+            is.close();
+
+        }catch(IOException ex){
+            ex.printStackTrace();
+        }
+
+
+    }
+
+    //***************** ALEXEI'S SHIT************************
+    /*public void parser(String fileName){
         String sendToArray = null;
         String[] stuff = new String[3];
         String pun = null;
@@ -184,7 +242,8 @@ public class MainActivity extends AppCompatActivity{
                 e.printStackTrace();
             }
         }
-    }
+    }*/
+    //************************************************************************
 
     String randomPunGenerator(Vector<String> possiblePuns){
         Random rand = new Random();
@@ -304,11 +363,11 @@ public class MainActivity extends AppCompatActivity{
 
     void add_to_myPuns(String myPun){
         collection.addElement(new catBase(myPun));
-        myPunsc4t.addElement(myPun);
+        //myPunsc4t.addElement(myPun);
         this.fill_myPunsc4t();
         try{
             FileOutputStream fos = openFileOutput("myPuns.txt", Context.MODE_APPEND);
-            fos.write((myPun+",myPuns,\n").getBytes());
+            fos.write((myPun+",myPuns,").getBytes());
             fos.close();
         }catch(IOException ex){
             ex.printStackTrace();
@@ -333,6 +392,12 @@ public class MainActivity extends AppCompatActivity{
         mainLayout = new LinearLayout(this);
         mainLayout.setOrientation(LinearLayout.VERTICAL);
         mainLayout.setBackgroundColor(0xFFcde1f8);
+
+        containerLayout3 = new LinearLayout(this);
+        popUpWindow3 = new PopupWindow(this);
+        layoutParams3 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        containerLayout3.setOrientation(LinearLayout.VERTICAL);
+        popUpWindow3.setFocusable(true);
 
         containerLayout2 = new LinearLayout(this);
         popUpWindow2 = new PopupWindow(this);
@@ -363,6 +428,9 @@ public class MainActivity extends AppCompatActivity{
         inv = new Button(this);
         inv.setBackgroundColor(Color.TRANSPARENT);
 
+        image = new Button(this);
+        //image.setBackgroundResource(R.drawable.pungent);
+
         my_puns = new Button(this);
         my_puns.getBackground().setColorFilter(0xFF41afe8, PorterDuff.Mode.MULTIPLY);
         my_puns.setText("A d d  T o  M y  P u n s");
@@ -387,11 +455,12 @@ public class MainActivity extends AppCompatActivity{
         mainLayout.addView(inv);
 
         close = new Button(this);
-        close.setText("Close");
+        //close.setText("Close");
         close.setLayoutParams(params);
         close.setTypeface(buttonFont);
         close.setTextSize(16);
         close.setTextColor(0xffcccccc);
+        //close.setBackgroundColor(Color.TRANSPARENT);
         LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         //params2.setMargins(50, 50, 50, 100); //left, top, right, bottom
         params2.gravity = Gravity.CENTER;
@@ -439,7 +508,12 @@ public class MainActivity extends AppCompatActivity{
 
         test = new TextView(this);
         warning = new TextView(this);
-        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+
+        this.parser();
+        this.fillCategoryVectors();
+
+        //****************************ALEXEI'S SHIT CONTINUES**********************
+        /*SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
         first_time = sharedPref.getInt(R.string.preference_file_key);
         if(first_time == 1){// new addition
             File fileName = "mypuns.txt";
@@ -453,7 +527,8 @@ public class MainActivity extends AppCompatActivity{
             this.parser("myPuns.txt");
             this.fillCategoryVectors();
             has_started = true;
-        }
+        }*/
+        //***************************
 
         categories.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -476,11 +551,13 @@ public class MainActivity extends AppCompatActivity{
 
                 user_input = input.getText().toString();
 
-                output.setTextSize(25);
-                output.setTypeface(buttonFont);
-                output.setGravity(Gravity.CENTER_HORIZONTAL);
-                popUpWindow.setWidth(700);
-                popUpWindow.setHeight(500);
+                close.setTextSize(25);
+                close.setTypeface(buttonFont);
+
+                popUpWindow.getBackground().setColorFilter(0xFFFFFF, PorterDuff.Mode.MULTIPLY);
+                //output.setGravity(Gravity.CENTER_HORIZONTAL);
+               // popUpWindow.setWidth(700);
+                //popUpWindow.setHeight(500);
 
                 if( user_input.equals("Craig") || user_input.equals("craig")){
                     Uri uriUrl = Uri.parse("https://www.youtube.com/watch?v=hbZZfQb4Olw");
@@ -490,21 +567,26 @@ public class MainActivity extends AppCompatActivity{
                 else if( user_input.equals("Janice") || user_input.equals("janice")){
                     randomPun = "Alright!";
                     popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
-                    output.setText(randomPun);
+                    close.setText(randomPun);
+                }
+                else if( user_input.equals("Craig photo") || user_input.equals("craig photo")){
+                    close.setBackgroundResource(R.drawable.craig);
+                    popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
+
                 }
                 else if(!(error1 = primaryErrorCheck(user_input))){
                     randomPun = "Your input must contain all letters";
                     popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
-                    output.setText(randomPun);
+                    close.setText(randomPun);
                 } else if(!(error2 = Error_check(user_input, collection))){
                     randomPun = "Sorry, this word is not in our database.";
                     popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
-                    output.setText(randomPun);
+                    close.setText(randomPun);
                 } else {
                     possiblePuns = punOut(user_input, collection);
                     randomPun = randomPunGenerator(possiblePuns);
                     popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
-                    output.setText(randomPun);
+                    close.setText(randomPun);
                 }
             }
         });
@@ -514,19 +596,26 @@ public class MainActivity extends AppCompatActivity{
             public void onClick(View v) {
                 Random rand = new Random();
                 int rnd_num = Math.abs(rand.nextInt() % collection.size());
-                output.setText(collection.elementAt(rnd_num).get_pun());
-                popUpWindow.setWidth(700);
-                popUpWindow.setHeight(500);
-                popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
-                output.setTextSize(25);
-                output.setTypeface(buttonFont);
-                output.setGravity(Gravity.CENTER_HORIZONTAL);
+                close.setText(collection.elementAt(rnd_num).get_pun());
+                //output.setText(collection.elementAt(rnd_num).get_pun());
+                //popUpWindow.setWidth(700);
+                //popUpWindow.setHeight(500);
+                popUpWindow.getBackground().setColorFilter(0xFFFFFF, PorterDuff.Mode.MULTIPLY);
+                popUpWindow.showAtLocation(mainLayout, Gravity.CENTER,0, 0);
+               // popUpWindow.update(0, 0, Gravity.CENTER_HORIZONTAL, Gravity.CENTER_VERTICAL);  //postion x, position y, size x, size y
+                close.setTextSize(25);
+                close.setTypeface(buttonFont);
+                //close.setGravity(Gravity.CENTER_HORIZONTAL);
+                //output.setTextSize(25);
+                //output.setTypeface(buttonFont);
+                //output.setGravity(Gravity.CENTER_HORIZONTAL);
             }
         });
 
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+               // if(user_input.length() < 90)
                 input.setText("");
                 popUpWindow.dismiss();
             }
@@ -536,8 +625,21 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 user_input = input.getText().toString();
-                add_to_myPuns(user_input);
-                input.setText("");
+               // String word;
+                /*if(user_input.length() > 90){
+                    String word = "You input is too long";
+                    output.setText(word);
+                    popUpWindow.setWidth(700);
+                    popUpWindow.setHeight(500);
+                    popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
+                    output.setTextSize(25);
+                    output.setTypeface(buttonFont);
+                    output.setGravity(Gravity.CENTER_HORIZONTAL);
+                }
+                else {}*/
+                    add_to_myPuns(user_input);
+                    input.setText("");
+
                 popUpWindow2.dismiss();
             }
         });
@@ -578,11 +680,14 @@ public class MainActivity extends AppCompatActivity{
         });
 
         //mainLayout.addView(test);
-        containerLayout.addView(output);
+       // containerLayout.addView(output);
+
         containerLayout.addView(close);
         containerLayout2.addView(warning);
         containerLayout2.addView(ok);
         containerLayout2.addView(cancel);
+        containerLayout3.addView(image);
+        popUpWindow3.setContentView(containerLayout3);
         popUpWindow.setContentView(containerLayout);
         popUpWindow2.setContentView(containerLayout2);
         setContentView(mainLayout);
