@@ -219,6 +219,24 @@ public class MainActivity extends AppCompatActivity{
         return errorFlag;
     }
 
+    String remove_end_spaces(String user_input){
+        String new_input = user_input;
+        boolean last_space = true;
+        for(int i = 0; last_space; i++){
+            String last_char = Character.toString(new_input.charAt(new_input.length()-1));
+            if(!(last_char.equals(" ")||last_char.equals("\n"))){
+                last_space = false;
+            }
+            else{
+                if(new_input.length()==1){
+                    return "";
+                }
+                new_input = new_input.substring(0, new_input.length()-1);
+            }
+        }
+        return new_input;
+    }
+
     boolean Error_check(String arg, Vector<catBase> collection){
         boolean true_flag = false;
         for(int i = 0;i<collection.size();i++){
@@ -496,6 +514,8 @@ public class MainActivity extends AppCompatActivity{
                 String randomPun;
 
                 user_input = input.getText().toString();
+                user_input = user_input.toLowerCase();
+                user_input = remove_end_spaces(user_input);
 
                 close.setTextSize(25);
                 close.setTypeface(buttonFont);
@@ -504,8 +524,8 @@ public class MainActivity extends AppCompatActivity{
                 //output.setGravity(Gravity.CENTER_HORIZONTAL);
                // popUpWindow.setWidth(700);
                 //popUpWindow.setHeight(500);
-
-                if( user_input.equals("Craig") || user_input.equals("craig")){
+                if( user_input.equals("")){}
+                else if( user_input.equals("Craig") || user_input.equals("craig")){
                     Uri uriUrl = Uri.parse("https://www.youtube.com/watch?v=hbZZfQb4Olw");
                     Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
                     startActivity(launchBrowser);
@@ -516,8 +536,13 @@ public class MainActivity extends AppCompatActivity{
                     close.setText(randomPun);
                 }
                 else if( user_input.equals("Craig photo") || user_input.equals("craig photo")){
-                    close.setBackgroundResource(R.drawable.craig);
-                    popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
+                    image.setBackgroundResource(R.drawable.craig);
+                    popUpWindow3.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
+
+                }
+                else if( user_input.equals("Craig photo Scarlet") || user_input.equals("craig photo scarlet")){
+                    image.setBackgroundResource(R.drawable.craig_pic_scarlet);
+                    popUpWindow3.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
 
                 }
                 else if(!(error1 = primaryErrorCheck(user_input))){
@@ -525,7 +550,7 @@ public class MainActivity extends AppCompatActivity{
                     popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
                     close.setText(randomPun);
                 } else if(!(error2 = Error_check(user_input, collection))){
-                    randomPun = "Sorry, this word is not in our database.";
+                    randomPun = "Sorry, this word/phrase is not in our database.";
                     popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
                     close.setText(randomPun);
                 } else {
@@ -564,6 +589,15 @@ public class MainActivity extends AppCompatActivity{
                // if(user_input.length() < 90)
                 input.setText("");
                 popUpWindow.dismiss();
+            }
+        });
+
+        image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // if(user_input.length() < 90)
+                input.setText("");
+                popUpWindow3.dismiss();
             }
         });
 
