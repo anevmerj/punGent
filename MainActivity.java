@@ -512,6 +512,10 @@ public class MainActivity extends AppCompatActivity{
                     image.setBackgroundResource(R.drawable.craig);
                     popUpWindow3.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
                 }
+                else if( user_input.equals("Craig photo Scarlet") || user_input.equals("craig photo scarlet")){
+                    image.setBackgroundResource(R.drawable.craig_pic_scarlet);
+                    popUpWindow3.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
+                }
                 else if(!(error1 = primaryErrorCheck(user_input))){
                     randomPun = "Your input must contain all letters";
                     popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
