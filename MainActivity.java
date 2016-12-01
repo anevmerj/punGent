@@ -77,10 +77,8 @@ public class MainActivity extends AppCompatActivity{
     int k = 0;
     int count = 0;
 
-    //*******************ALEXEI***********
-    //static boolean has_started = false;
+    static boolean has_started = false;
     //static int first_time = 1;
-    //**************************************
 
     //CATEGORIES STUFF STARTS
     static Vector<String> categoryVector = new Vector();
@@ -104,58 +102,7 @@ public class MainActivity extends AppCompatActivity{
 
     static Context context;
 
-
-    public void parser(){
-        String sendToArray = null;
-        String[] stuff = new String[3];
-        String pun;
-        String cat;
-        String word;
-
-        try{
-            AssetManager am = getAssets();
-            InputStream is = am.open("PunGen.txt");
-            InputStreamReader readerFile = new InputStreamReader(is);
-            BufferedReader br = new BufferedReader(readerFile);
-            int i = 0;
-            while((sendToArray = br.readLine()) != null){
-
-                stuff = sendToArray.split(",");
-                pun = stuff[0];
-                cat = stuff[1];
-                if(stuff.length != 3){
-                    word = "";
-                }
-                else {
-                    word = stuff[2];
-                }
-                i++;
-                if(pun.equals("")){
-                    if(!(cat.equals(""))){
-                        collection.lastElement().add_cat(cat);
-                    }
-                    if(!(word.equals(""))){
-                        collection.lastElement().add_word(word);
-                    }
-
-                }
-                else{
-                    collection.addElement(new catBase(cat,pun,word));
-                }
-                //readerFile.close();
-
-            }
-            is.close();
-
-        }catch(IOException ex){
-            ex.printStackTrace();
-        }
-
-
-    }
-
-    //***************** ALEXEI'S SHIT************************
-    /*public void parser(String fileName){
+    public void parser(String fileName){
         String sendToArray = null;
         String[] stuff = new String[3];
         String pun = null;
@@ -242,8 +189,7 @@ public class MainActivity extends AppCompatActivity{
                 e.printStackTrace();
             }
         }
-    }*/
-    //************************************************************************
+    }
 
     String randomPunGenerator(Vector<String> possiblePuns){
         Random rand = new Random();
@@ -363,7 +309,7 @@ public class MainActivity extends AppCompatActivity{
 
     void add_to_myPuns(String myPun){
         collection.addElement(new catBase(myPun));
-        //myPunsc4t.addElement(myPun);
+        myPunsc4t.addElement(myPun);
         this.fill_myPunsc4t();
         try{
             FileOutputStream fos = openFileOutput("myPuns.txt", Context.MODE_APPEND);
@@ -509,8 +455,8 @@ public class MainActivity extends AppCompatActivity{
         test = new TextView(this);
         warning = new TextView(this);
 
-        this.parser();
-        this.fillCategoryVectors();
+//        this.parser();
+//        this.fillCategoryVectors();
 
         //****************************ALEXEI'S SHIT CONTINUES**********************
         /*SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
@@ -521,14 +467,13 @@ public class MainActivity extends AppCompatActivity{
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putInt(R.string.preference_file_key, first_time);
             editor.commit();
-        }
+        }*/
         if(!(has_started)) {
             this.parser("PunGen.txt");
             this.parser("myPuns.txt");
             this.fillCategoryVectors();
             has_started = true;
-        }*/
-        //***************************
+        }
 
         categories.setOnClickListener(new View.OnClickListener() {
             @Override
