@@ -15,6 +15,7 @@ import android.content.res.AssetManager;
 import android.content.Context;
 import android.graphics.Point;
 import android.graphics.Color;
+//import android.widget.GridLayout.LayoutParams;
 import android.graphics.Typeface;
 import android.widget.ImageView;
 import android.graphics.PorterDuff;
@@ -70,6 +71,8 @@ public class MainActivity extends AppCompatActivity{
     TextView test;
 
     Vector uservector;
+    private SharedPreferences preferenceSettings;
+    private SharedPreferences.Editor preferenceEditor;
 
     static Vector<catBase> collection = new Vector();
     int i = 0; //id for categories button
@@ -77,7 +80,7 @@ public class MainActivity extends AppCompatActivity{
     int count = 0;
 
     static boolean has_started = false;
-    //static int first_time = 1;
+    int first_time;
 
     //CATEGORIES STUFF STARTS
     static Vector<String> categoryVector = new Vector();
@@ -100,6 +103,7 @@ public class MainActivity extends AppCompatActivity{
     Display screen;
 
     static Context context;
+
 
     public void parser(String fileName){
         String sendToArray = null;
@@ -312,7 +316,7 @@ public class MainActivity extends AppCompatActivity{
         this.fill_myPunsc4t();
         try{
             FileOutputStream fos = openFileOutput("myPuns.txt", Context.MODE_APPEND);
-            fos.write((myPun+",myPuns,").getBytes());
+            fos.write((myPun+",myPuns,\n").getBytes());
             fos.close();
         }catch(IOException ex){
             ex.printStackTrace();
@@ -400,11 +404,14 @@ public class MainActivity extends AppCompatActivity{
         mainLayout.addView(inv);
 
         close = new Button(this);
+        //close.setText("Close");
         close.setLayoutParams(params);
         close.setTypeface(buttonFont);
         close.setTextSize(16);
         close.setTextColor(0xffcccccc);
+        //close.setBackgroundColor(Color.TRANSPARENT);
         LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        //params2.setMargins(50, 50, 50, 100); //left, top, right, bottom
         params2.gravity = Gravity.CENTER;
         close.setLayoutParams(params2);
 
@@ -451,19 +458,17 @@ public class MainActivity extends AppCompatActivity{
         test = new TextView(this);
         warning = new TextView(this);
 
-//        this.parser();
-//        this.fillCategoryVectors();
 
-        //****************************ALEXEI'S SHIT CONTINUES**********************
-        /*SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
-        first_time = sharedPref.getInt(R.string.preference_file_key);
-        if(first_time == 1){// new addition
-            File fileName = "mypuns.txt";
+        preferenceSettings = this.getPreferences(Context.MODE_PRIVATE);
+        first_time = preferenceSettings.getInt("first_time",1);
+        if(first_time == 1){
+            first_time = 0;
+            File fileName = new File("/data/user/0/com.example.mirna.pungent/files/myPuns.txt");
             fileName.delete();
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putInt(R.string.preference_file_key, first_time);
-            editor.commit();
-        }*/
+            preferenceEditor = preferenceSettings.edit();
+            preferenceEditor.putInt("first_time", first_time);
+            preferenceEditor.commit();
+        }
         if(!(has_started)) {
             this.parser("PunGen.txt");
             this.parser("myPuns.txt");
@@ -496,7 +501,9 @@ public class MainActivity extends AppCompatActivity{
                 close.setTypeface(buttonFont);
 
                 popUpWindow.getBackground().setColorFilter(0xFFFFFF, PorterDuff.Mode.MULTIPLY);
-
+                //output.setGravity(Gravity.CENTER_HORIZONTAL);
+               // popUpWindow.setWidth(700);
+                //popUpWindow.setHeight(500);
 
                 if( user_input.equals("Craig") || user_input.equals("craig")){
                     Uri uriUrl = Uri.parse("https://www.youtube.com/watch?v=hbZZfQb4Olw");
@@ -509,12 +516,9 @@ public class MainActivity extends AppCompatActivity{
                     close.setText(randomPun);
                 }
                 else if( user_input.equals("Craig photo") || user_input.equals("craig photo")){
-                    image.setBackgroundResource(R.drawable.craig);
-                    popUpWindow3.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
-                }
-                else if( user_input.equals("Craig photo Scarlet") || user_input.equals("craig photo scarlet")){
-                    image.setBackgroundResource(R.drawable.craig_pic_scarlet);
-                    popUpWindow3.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
+                    close.setBackgroundResource(R.drawable.craig);
+                    popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
+
                 }
                 else if(!(error1 = primaryErrorCheck(user_input))){
                     randomPun = "Your input must contain all letters";
@@ -539,36 +543,48 @@ public class MainActivity extends AppCompatActivity{
                 Random rand = new Random();
                 int rnd_num = Math.abs(rand.nextInt() % collection.size());
                 close.setText(collection.elementAt(rnd_num).get_pun());
+                //output.setText(collection.elementAt(rnd_num).get_pun());
+                //popUpWindow.setWidth(700);
+                //popUpWindow.setHeight(500);
                 popUpWindow.getBackground().setColorFilter(0xFFFFFF, PorterDuff.Mode.MULTIPLY);
                 popUpWindow.showAtLocation(mainLayout, Gravity.CENTER,0, 0);
+               // popUpWindow.update(0, 0, Gravity.CENTER_HORIZONTAL, Gravity.CENTER_VERTICAL);  //postion x, position y, size x, size y
                 close.setTextSize(25);
                 close.setTypeface(buttonFont);
+                //close.setGravity(Gravity.CENTER_HORIZONTAL);
+                //output.setTextSize(25);
+                //output.setTypeface(buttonFont);
+                //output.setGravity(Gravity.CENTER_HORIZONTAL);
             }
         });
 
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+               // if(user_input.length() < 90)
                 input.setText("");
                 popUpWindow.dismiss();
             }
         });
 
-        image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                input.setText("");
-                popUpWindow3.dismiss();
-            }
-        });
-
-
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 user_input = input.getText().toString();
-                add_to_myPuns(user_input);
-                input.setText("");
+               // String word;
+                /*if(user_input.length() > 90){
+                    String word = "You input is too long";
+                    output.setText(word);
+                    popUpWindow.setWidth(700);
+                    popUpWindow.setHeight(500);
+                    popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
+                    output.setTextSize(25);
+                    output.setTypeface(buttonFont);
+                    output.setGravity(Gravity.CENTER_HORIZONTAL);
+                }
+                else {}*/
+                    add_to_myPuns(user_input);
+                    input.setText("");
 
                 popUpWindow2.dismiss();
             }
@@ -608,6 +624,9 @@ public class MainActivity extends AppCompatActivity{
                 //test.setText(count);
             }
         });
+
+        //mainLayout.addView(test);
+       // containerLayout.addView(output);
 
         containerLayout.addView(close);
         containerLayout2.addView(warning);
