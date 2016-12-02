@@ -357,6 +357,8 @@ public class MainActivity extends AppCompatActivity{
         display.getSize(size);
         int width = size.x;
         int height = size.y;
+        final int popUpHeight = (height/3);
+        final int popUpWidth = (int)(width/1.5);
 
 
         final Typeface buttonFont = Typeface.createFromAsset(getAssets(), "Fonts/CurseCasual.ttf");
@@ -536,7 +538,7 @@ public class MainActivity extends AppCompatActivity{
 
                 popUpWindow.getBackground().setColorFilter(0xFFFFFF, PorterDuff.Mode.MULTIPLY);
                 //output.setGravity(Gravity.CENTER_HORIZONTAL);
-               // popUpWindow.setWidth(700);
+                // popUpWindow.setWidth(700);
                 //popUpWindow.setHeight(500);
 
 
@@ -593,7 +595,7 @@ public class MainActivity extends AppCompatActivity{
                 //popUpWindow.setHeight(500);
                 popUpWindow.getBackground().setColorFilter(0xFFFFFF, PorterDuff.Mode.MULTIPLY);
                 popUpWindow.showAtLocation(mainLayout, Gravity.CENTER,0, 0);
-               // popUpWindow.update(0, 0, Gravity.CENTER_HORIZONTAL, Gravity.CENTER_VERTICAL);  //postion x, position y, size x, size y
+                // popUpWindow.update(0, 0, Gravity.CENTER_HORIZONTAL, Gravity.CENTER_VERTICAL);  //postion x, position y, size x, size y
                 close.setTextSize(25);
                 close.setTypeface(buttonFont);
                 //close.setGravity(Gravity.CENTER_HORIZONTAL);
@@ -606,7 +608,7 @@ public class MainActivity extends AppCompatActivity{
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // if(user_input.length() < 90)
+                // if(user_input.length() < 90)
                 input.setText("");
                 popUpWindow.dismiss();
             }
@@ -625,7 +627,7 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 user_input = input.getText().toString();
-               // String word;
+                // String word;
                 /*if(user_input.length() > 90){
                     String word = "You input is too long";
                     output.setText(word);
@@ -637,8 +639,8 @@ public class MainActivity extends AppCompatActivity{
                     output.setGravity(Gravity.CENTER_HORIZONTAL);
                 }
                 else {}*/
-                    add_to_myPuns(user_input);
-                    input.setText("");
+                add_to_myPuns(user_input);
+                input.setText("");
 
                 popUpWindow2.dismiss();
             }
@@ -655,8 +657,8 @@ public class MainActivity extends AppCompatActivity{
         my_puns.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popUpWindow2.setWidth(700);
-                popUpWindow2.setHeight(600);
+                popUpWindow2.setWidth(popUpWidth);
+                popUpWindow2.setHeight(popUpHeight);
                 popUpWindow2.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
                 warning.setTextSize(25);
                 warning.setTypeface(buttonFont);
@@ -680,7 +682,7 @@ public class MainActivity extends AppCompatActivity{
         });
 
         //mainLayout.addView(test);
-       // containerLayout.addView(output);
+        // containerLayout.addView(output);
 
         containerLayout.addView(close);
         containerLayout2.addView(warning);
