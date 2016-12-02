@@ -45,13 +45,13 @@ public class MainActivity extends AppCompatActivity{
     LinearLayout containerLayout3;
 
     LayoutParams layoutParams;
-    PopupWindow popUpWindow;
+    PopupWindow popUpWindow; //normal pop up with only the close button
 
     LayoutParams layoutParams2;
-    PopupWindow popUpWindow2;
+    PopupWindow popUpWindow2; //pop up for "add to my puns"
 
     LayoutParams layoutParams3;
-    PopupWindow popUpWindow3;
+    PopupWindow popUpWindow3; //pop up for images
 
     Button pun_me;
     Button categories;
@@ -651,6 +651,12 @@ public class MainActivity extends AppCompatActivity{
                     startActivity(launchBrowser);
                     count = 0;
                 }
+            }
+        });
+        popUpWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                input.setText("");
             }
         });
 
