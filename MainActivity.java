@@ -15,7 +15,6 @@ import android.content.res.AssetManager;
 import android.content.Context;
 import android.graphics.Point;
 import android.graphics.Color;
-//import android.widget.GridLayout.LayoutParams;
 import android.graphics.Typeface;
 import android.widget.ImageView;
 import android.graphics.PorterDuff;
@@ -27,14 +26,12 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.lang.String;
-import java.io.File;
 
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import java.util.Vector;
 import java.util.Random;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.InputStreamReader;
 import java.io.IOException;
 
@@ -385,13 +382,13 @@ public class MainActivity extends AppCompatActivity{
         layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         containerLayout.setOrientation(LinearLayout.VERTICAL);
         popUpWindow.setFocusable(true);
+        popUpWindow.getBackground().setColorFilter(0xFFFFFF, PorterDuff.Mode.MULTIPLY);
 
 
         ImageView title = new ImageView(this);
         title.setImageResource(R.drawable.pungent);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(width,(int)(0.3*height));
         mainLayout.addView(title,lp);
-        String hinter = new String("Enter your new pun here!");
 
 
         input = new EditText(getApplication());
@@ -404,7 +401,6 @@ public class MainActivity extends AppCompatActivity{
         inv.setBackgroundColor(Color.TRANSPARENT);
 
         image = new Button(this);
-        //image.setBackgroundResource(R.drawable.pungent);
 
         my_puns = new Button(this);
         my_puns.getBackground().setColorFilter(0xFF41afe8, PorterDuff.Mode.MULTIPLY);
@@ -430,16 +426,15 @@ public class MainActivity extends AppCompatActivity{
         mainLayout.addView(inv);
 
         close = new Button(this);
-        //close.setText("Close");
         close.setLayoutParams(params);
         close.setTypeface(buttonFont);
         close.setTextSize(16);
         close.setTextColor(0xffcccccc);
-        //close.setBackgroundColor(Color.TRANSPARENT);
         LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        //params2.setMargins(50, 50, 50, 100); //left, top, right, bottom
         params2.gravity = Gravity.CENTER;
         close.setLayoutParams(params2);
+        close.setTextSize(25);
+        close.setTypeface(buttonFont);
 
 
         ok = new Button(this);
@@ -533,20 +528,11 @@ public class MainActivity extends AppCompatActivity{
                 user_input = user_input.toLowerCase();
                 user_input = remove_end_spaces(user_input);
 
-                close.setTextSize(25);
-                close.setTypeface(buttonFont);
 
-                popUpWindow.getBackground().setColorFilter(0xFFFFFF, PorterDuff.Mode.MULTIPLY);
-                //output.setGravity(Gravity.CENTER_HORIZONTAL);
-                // popUpWindow.setWidth(700);
-                //popUpWindow.setHeight(500);
-
-
-
-                if( user_input.equals("")){}// add message for blank text box or all spaces input
-
-
-
+                if( user_input.equals("")){// add message for blank text box or all spaces input
+                    popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
+                    close.setText("Please input a word");
+                }
                 else if( user_input.equals("Craig") || user_input.equals("craig")){
                     Uri uriUrl = Uri.parse("https://www.youtube.com/watch?v=hbZZfQb4Olw");
                     Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
@@ -590,25 +576,17 @@ public class MainActivity extends AppCompatActivity{
                 Random rand = new Random();
                 int rnd_num = Math.abs(rand.nextInt() % collection.size());
                 close.setText(collection.elementAt(rnd_num).get_pun());
-                //output.setText(collection.elementAt(rnd_num).get_pun());
-                //popUpWindow.setWidth(700);
-                //popUpWindow.setHeight(500);
                 popUpWindow.getBackground().setColorFilter(0xFFFFFF, PorterDuff.Mode.MULTIPLY);
                 popUpWindow.showAtLocation(mainLayout, Gravity.CENTER,0, 0);
-                // popUpWindow.update(0, 0, Gravity.CENTER_HORIZONTAL, Gravity.CENTER_VERTICAL);  //postion x, position y, size x, size y
                 close.setTextSize(25);
                 close.setTypeface(buttonFont);
-                //close.setGravity(Gravity.CENTER_HORIZONTAL);
-                //output.setTextSize(25);
-                //output.setTypeface(buttonFont);
-                //output.setGravity(Gravity.CENTER_HORIZONTAL);
+
             }
         });
 
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // if(user_input.length() < 90)
                 input.setText("");
                 popUpWindow.dismiss();
             }
@@ -617,7 +595,6 @@ public class MainActivity extends AppCompatActivity{
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // if(user_input.length() < 90)
                 input.setText("");
                 popUpWindow3.dismiss();
             }
@@ -627,20 +604,9 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 user_input = input.getText().toString();
-                // String word;
-                /*if(user_input.length() > 90){
-                    String word = "You input is too long";
-                    output.setText(word);
-                    popUpWindow.setWidth(700);
-                    popUpWindow.setHeight(500);
-                    popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
-                    output.setTextSize(25);
-                    output.setTypeface(buttonFont);
-                    output.setGravity(Gravity.CENTER_HORIZONTAL);
-                }
-                else {}*/
-                add_to_myPuns(user_input);
-                input.setText("");
+                    add_to_myPuns(user_input);
+                    input.setText("");
+
 
                 popUpWindow2.dismiss();
             }
@@ -657,13 +623,21 @@ public class MainActivity extends AppCompatActivity{
         my_puns.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popUpWindow2.setWidth(popUpWidth);
-                popUpWindow2.setHeight(popUpHeight);
-                popUpWindow2.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
-                warning.setTextSize(25);
-                warning.setTypeface(buttonFont);
-                warning.setGravity(Gravity.CENTER_HORIZONTAL);
-                warning.setText("Warning: Once pun is submitted, it cannot be pundone");
+                user_input = input.getText().toString();
+                user_input = remove_end_spaces(user_input);
+                if(user_input.equals("")) {
+                    popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
+                    close.setText("Please input a pun");
+                }
+                else{
+                    popUpWindow2.setWidth(popUpWidth);
+                    popUpWindow2.setHeight(popUpHeight);
+                    popUpWindow2.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
+                    warning.setTextSize(25);
+                    warning.setTypeface(buttonFont);
+                    warning.setGravity(Gravity.CENTER_HORIZONTAL);
+                    warning.setText("Warning: Once pun is submitted, it cannot be pundone");
+                }
             }
         });
 
@@ -677,12 +651,8 @@ public class MainActivity extends AppCompatActivity{
                     startActivity(launchBrowser);
                     count = 0;
                 }
-                //test.setText(count);
             }
         });
-
-        //mainLayout.addView(test);
-        // containerLayout.addView(output);
 
         containerLayout.addView(close);
         containerLayout2.addView(warning);
