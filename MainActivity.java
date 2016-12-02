@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity{
 
     Display screen;
 
-    static Context context;
+    Context context; // changed to be non static
 
 
     public void parser(String fileName){
@@ -216,12 +216,18 @@ public class MainActivity extends AppCompatActivity{
                 errorFlag = false;
             }
         }
+//        if(user_input.length() == 0){ // used for error checking empty strings or strings of all spaces after space removal
+//            errorFlag = false;        // can be reimplemented once empty string input below is defined in terms of function
+//        }
         return errorFlag;
     }
 
     String remove_end_spaces(String user_input){
         String new_input = user_input;
         boolean last_space = true;
+        if(user_input.length() == 0){
+            return "";
+        }
         for(int i = 0; last_space; i++){
             String last_char = Character.toString(new_input.charAt(new_input.length()-1));
             if(!(last_char.equals(" ")||last_char.equals("\n"))){
@@ -481,8 +487,8 @@ public class MainActivity extends AppCompatActivity{
         first_time = preferenceSettings.getInt("first_time",1);
         if(first_time == 1){
             first_time = 0;
-            File fileName = new File("/data/user/0/com.example.mirna.pungent/files/myPuns.txt");
-            fileName.delete();
+            //File fileName = new File("/data/user/0/com.example.mirna.pungent/files/myPuns.txt");
+            context.deleteFile("myPuns.txt");
             preferenceEditor = preferenceSettings.edit();
             preferenceEditor.putInt("first_time", first_time);
             preferenceEditor.commit();
@@ -524,7 +530,13 @@ public class MainActivity extends AppCompatActivity{
                 //output.setGravity(Gravity.CENTER_HORIZONTAL);
                // popUpWindow.setWidth(700);
                 //popUpWindow.setHeight(500);
-                if( user_input.equals("")){}
+
+
+
+                if( user_input.equals("")){}// add message for blank text box or all spaces input
+
+
+
                 else if( user_input.equals("Craig") || user_input.equals("craig")){
                     Uri uriUrl = Uri.parse("https://www.youtube.com/watch?v=hbZZfQb4Olw");
                     Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
