@@ -489,7 +489,14 @@ public class MainActivity extends AppCompatActivity{
             first_time = 0;
             //File fileName = new File("/data/user/0/com.example.mirna.pungent/files/myPuns.txt");
             //fileName.delete();
-            context.deleteFile("myPuns.txt");
+            //context.deleteFile("myPuns.txt");
+            try{
+                FileOutputStream fos = openFileOutput("myPuns.txt", Context.MODE_PRIVATE);
+                fos.write(("").getBytes());
+                fos.close();
+            }catch(IOException ex){
+                ex.printStackTrace();
+            }
             preferenceEditor = preferenceSettings.edit();
             preferenceEditor.putInt("first_time", first_time);
             preferenceEditor.commit();
