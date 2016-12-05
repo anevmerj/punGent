@@ -3,16 +3,12 @@ package com.example.mirna.pungent;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
-import android.content.Intent;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.PopupWindow;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
@@ -25,6 +21,7 @@ public class categories extends MainActivity {
     LayoutParams layoutParams;
     PopupWindow popUpWindow;
 
+    //categories buttons
     Button pickuplines;
     Button food;
     Button science;
@@ -35,9 +32,8 @@ public class categories extends MainActivity {
     Button holiday;
     Button pokemon;
     Button myPuns;
+    //button for puns
     Button close;
-
-    TextView ran_pun;
 
     Display screen;
 
@@ -48,27 +44,22 @@ public class categories extends MainActivity {
         mainLayout = new LinearLayout(this);
         mainLayout.setOrientation(LinearLayout.VERTICAL);
         mainLayout.setBackgroundColor(0xFFcde1f8);
-        final Typeface buttonFont = Typeface.createFromAsset(getAssets(), "Fonts/CurseCasual.ttf");
+        final Typeface buttonFont = Typeface.createFromAsset(getAssets(), "Fonts/CurseCasual.ttf");//sets font
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        int width = size.x;
-        int height = size.y;
-        final int popUpHeight = (int)(height/2);
-        final int popUpWidth = (int)(width/2);
+        int width = size.x; //width of user phone
+        int height = size.y; //height of user phone
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         params.setMargins(0, 0, 0, 0);
 
         close = new Button(this);
-       // close.setText("Close");
         close.setLayoutParams(params);
         close.setTypeface(buttonFont);
         close.setTextSize(25);
         close.setTextColor(0xffcccccc);
-        //LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         params.gravity = Gravity.CENTER;
-        //params.gravity = Gravity.BOTTOM;
         close.setLayoutParams(params);
 
 
@@ -155,8 +146,6 @@ public class categories extends MainActivity {
         containerLayout = new LinearLayout(this);
         popUpWindow = new PopupWindow(this);
 
-        ran_pun = new TextView(this);
-
         layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         containerLayout.setOrientation(LinearLayout.VERTICAL);
         popUpWindow.setFocusable(true);
@@ -166,14 +155,9 @@ public class categories extends MainActivity {
         pickuplines.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //popUpWindow.setWidth(700);
-               //popUpWindow.setHeight(500);
                 popUpWindow.getBackground().setColorFilter(0xFFFFFF, PorterDuff.Mode.MULTIPLY);
                 popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
                 String pun = randomPunGenerator(pickuplinesc4t);
-                //close.setTextSize(25);
-                //ran_pun.setTypeface(buttonFont);
-                //ran_pun.setGravity(Gravity.CENTER_HORIZONTAL);
                 close.setText(pun);
             }
         });
@@ -181,15 +165,10 @@ public class categories extends MainActivity {
         food.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //popUpWindow.setWidth(700);
-                //popUpWindow.setHeight(500);
                 popUpWindow.getBackground().setColorFilter(0xFFFFFF, PorterDuff.Mode.MULTIPLY);
                 popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
                 String pun = randomPunGenerator(foodc4t);
                 close.setText(pun);
-               // ran_pun.setTextSize(25);
-                //ran_pun.setTypeface(buttonFont);
-                //ran_pun.setGravity(Gravity.CENTER_HORIZONTAL);
 
             }
         });
@@ -197,15 +176,9 @@ public class categories extends MainActivity {
         science.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //popUpWindow.setWidth(700);
-                //popUpWindow.setHeight(500);
                 popUpWindow.getBackground().setColorFilter(0xFFFFFF, PorterDuff.Mode.MULTIPLY);
                 popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
                 String pun = randomPunGenerator(sciencec4t);
-                //ran_pun.setTextSize(25);
-                //ran_pun.setTypeface(buttonFont);
-                //ran_pun.setGravity(Gravity.CENTER_HORIZONTAL);
-
                 close.setText(pun);
             }
         });
@@ -213,14 +186,9 @@ public class categories extends MainActivity {
         celebrities.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //popUpWindow.setWidth(700);
-                //popUpWindow.setHeight(500);
                 popUpWindow.getBackground().setColorFilter(0xFFFFFF, PorterDuff.Mode.MULTIPLY);
                 popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
                 String pun = randomPunGenerator(celebritiesc4t);
-               // ran_pun.setTextSize(25);
-                //ran_pun.setTypeface(buttonFont);
-                //ran_pun.setGravity(Gravity.CENTER_HORIZONTAL);
                 close.setText(pun);
             }
         });
@@ -228,14 +196,9 @@ public class categories extends MainActivity {
         jokes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //popUpWindow.setWidth(700);
-                //popUpWindow.setHeight(500);
                 popUpWindow.getBackground().setColorFilter(0xFFFFFF, PorterDuff.Mode.MULTIPLY);
                 popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
                 String pun = randomPunGenerator(jokesc4t);
-                //ran_pun.setTextSize(25);
-                //ran_pun.setTypeface(buttonFont);
-                //ran_pun.setGravity(Gravity.CENTER_HORIZONTAL);
                 close.setText(pun);
             }
         });
@@ -243,14 +206,9 @@ public class categories extends MainActivity {
         animals.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // popUpWindow.setWidth(700);
-                //popUpWindow.setHeight(500);
                 popUpWindow.getBackground().setColorFilter(0xFFFFFF, PorterDuff.Mode.MULTIPLY);
                 popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
                 String pun = randomPunGenerator(animalsc4t);
-               // ran_pun.setTextSize(25);
-                //ran_pun.setTypeface(buttonFont);
-               // ran_pun.setGravity(Gravity.CENTER_HORIZONTAL);
                 close.setText(pun);
             }
         });
@@ -258,14 +216,9 @@ public class categories extends MainActivity {
         movies.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //popUpWindow.setWidth(700);
-                //popUpWindow.setHeight(500);
                 popUpWindow.getBackground().setColorFilter(0xFFFFFF, PorterDuff.Mode.MULTIPLY);
                 popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
                 String pun = randomPunGenerator(moviesc4t);
-                //ran_pun.setTextSize(25);
-                //ran_pun.setTypeface(buttonFont);
-               // ran_pun.setGravity(Gravity.CENTER_HORIZONTAL);
                 close.setText(pun);
             }
         });
@@ -273,14 +226,9 @@ public class categories extends MainActivity {
         holiday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //popUpWindow.setWidth(700);
-                //popUpWindow.setHeight(500);
                 popUpWindow.getBackground().setColorFilter(0xFFFFFF, PorterDuff.Mode.MULTIPLY);
                 popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
                 String pun = randomPunGenerator(holidayc4t);
-                //ran_pun.setTextSize(25);
-                //ran_pun.setTypeface(buttonFont);
-                //ran_pun.setGravity(Gravity.CENTER_HORIZONTAL);
                 close.setText(pun);
             }
         });
@@ -288,14 +236,9 @@ public class categories extends MainActivity {
         pokemon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // popUpWindow.setWidth(700);
-                //popUpWindow.setHeight(500);
                 popUpWindow.getBackground().setColorFilter(0xFFFFFF, PorterDuff.Mode.MULTIPLY);
                 popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
                 String pun = randomPunGenerator(pokemonc4t);
-                //ran_pun.setTextSize(25);
-                //ran_pun.setTypeface(buttonFont);
-                //ran_pun.setGravity(Gravity.CENTER_HORIZONTAL);
                 close.setText(pun);
             }
         });
@@ -303,18 +246,14 @@ public class categories extends MainActivity {
         myPuns.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //popUpWindow.setWidth(700);
-                //popUpWindow.setHeight(500);
                 popUpWindow.getBackground().setColorFilter(0xFFFFFF, PorterDuff.Mode.MULTIPLY);
                 popUpWindow.showAtLocation(mainLayout, Gravity.CENTER,0, 0);
                 String pun = randomPunGenerator(myPunsc4t);
-                //ran_pun.setTextSize(25);
-                //ran_pun.setTypeface(buttonFont);
-                //ran_pun.setGravity(Gravity.CENTER_HORIZONTAL);
                 close.setText(pun);
             }
         });
 
+        //dismiss popup when pun (close button) is pressed
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -322,7 +261,6 @@ public class categories extends MainActivity {
             }
         });
 
-        //containerLayout.addView(ran_pun);
         containerLayout.addView(close);
         popUpWindow.setContentView(containerLayout);
         setContentView(mainLayout);
