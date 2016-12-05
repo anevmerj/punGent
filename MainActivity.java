@@ -20,15 +20,13 @@ import android.widget.ImageView;
 import android.graphics.PorterDuff;
 import android.view.ViewGroup.LayoutParams;
 import android.net.Uri;
-
+import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.lang.String;
-
-import android.widget.PopupWindow;
-import android.widget.TextView;
 import java.util.Vector;
 import java.util.Random;
 import java.io.InputStream;
@@ -56,16 +54,14 @@ public class MainActivity extends AppCompatActivity{
     Button pun_me;
     Button categories;
     Button ranpun;
-    Button close;
-    Button ok;
+    Button close; //button for general pop up
+    Button ok; //for the add to my puns pop up
     Button my_puns;
-    Button inv;
-    Button cancel;
-    Button image;
+    Button inv; //invisble button
+    Button cancel; //for the add to my puns pop up
+    Button image; //button for hidden feature (image pop up)
 
-    TextView output;
-    TextView warning;
-    TextView test;
+    TextView warning;//warning message on the pop up for add to my puns
 
     Vector uservector;
     private SharedPreferences preferenceSettings;
@@ -74,7 +70,7 @@ public class MainActivity extends AppCompatActivity{
     static Vector<catBase> collection = new Vector();
     int i = 0; //id for categories button
     int k = 0;
-    int count = 0;
+    int count = 0; //counter for invisble button
 
     static boolean has_started = false;
     int first_time;
@@ -352,12 +348,12 @@ public class MainActivity extends AppCompatActivity{
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        int width = size.x;
-        int height = size.y;
+        int width = size.x; //width of users phone
+        int height = size.y; //height of users phone
         final int popUpHeight = (height/3);
         final int popUpWidth = (int)(width/1.5);
 
-
+        //To set the font
         final Typeface buttonFont = Typeface.createFromAsset(getAssets(), "Fonts/CurseCasual.ttf");
 
 
@@ -398,7 +394,7 @@ public class MainActivity extends AppCompatActivity{
         input.setLayoutParams(new LinearLayout.LayoutParams(width,200));
 
         inv = new Button(this);
-        inv.setBackgroundColor(Color.TRANSPARENT);
+        inv.setBackgroundColor(Color.TRANSPARENT); //sets button invisible but still clickable
 
         image = new Button(this);
 
@@ -415,11 +411,8 @@ public class MainActivity extends AppCompatActivity{
         pun_me.setTextSize(25);
         pun_me.setTypeface(buttonFont);
         pun_me.setLayoutParams(new LinearLayout.LayoutParams(width,(int)(0.1*height)));
-
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         params.setMargins(0, 0, 0, 0);
-
-        pun_me.requestLayout();
 
         mainLayout.addView(pun_me);
         mainLayout.addView(my_puns);
@@ -472,13 +465,7 @@ public class MainActivity extends AppCompatActivity{
         mainLayout.addView(ranpun);
         uservector = new Vector();
 
-        output = new TextView(this);
-
         warning = new TextView(this);
-
-        test = new TextView(this);
-        warning = new TextView(this);
-
 
         preferenceSettings = this.getPreferences(Context.MODE_PRIVATE);
         first_time = preferenceSettings.getInt("first_time",1);
@@ -505,6 +492,7 @@ public class MainActivity extends AppCompatActivity{
             has_started = true;
         }
 
+        //categories button opens new activity
         categories.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -517,6 +505,7 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
+        //pun me button with hidden keywords
         pun_me.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -570,6 +559,7 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
+        //random pun generator button
         ranpun.setOnClickListener(new View.OnClickListener() { //Output a pun
             @Override
             public void onClick(View v) {
@@ -584,6 +574,7 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
+        //dismiss pop up and clear input when closed button is pressed
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -592,6 +583,7 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
+        //dismiss pop up and clear input when image button is pressed
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -600,18 +592,18 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
+        //dismiss pop up and clear input when closed button is pressed
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 user_input = input.getText().toString();
-                    add_to_myPuns(user_input);
-                    input.setText("");
-
-
+                add_to_myPuns(user_input); //adds user's pun to their category
+                input.setText("");
                 popUpWindow2.dismiss();
             }
         });
 
+        //dismiss pop up and clear input when cancel button is pressed
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -620,6 +612,7 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
+        //pop up for add to my puns button
         my_puns.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -636,11 +629,12 @@ public class MainActivity extends AppCompatActivity{
                     warning.setTextSize(25);
                     warning.setTypeface(buttonFont);
                     warning.setGravity(Gravity.CENTER_HORIZONTAL);
-                    warning.setText("Warning: Once pun is submitted, it cannot be pundone");
+                    warning.setText("WARNING: ONCE PUN IS SUBMITTED, IT CANNOT BE PUNDONE");
                 }
             }
         });
 
+        //Invisble button
         inv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -653,7 +647,25 @@ public class MainActivity extends AppCompatActivity{
                 }
             }
         });
+
+        //when popup is dismissed
         popUpWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                input.setText("");
+            }
+        });
+
+        //when popup for add to my puns is dismissed
+        popUpWindow2.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                input.setText("");
+            }
+        });
+
+        //when popup for image is dismissed
+        popUpWindow3.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
                 input.setText("");
