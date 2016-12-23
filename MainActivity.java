@@ -95,10 +95,9 @@ public class MainActivity extends AppCompatActivity{
 
     Display screen;
 
-    Context context; // changed to be non static doesn't break anything yet
+    Context context; // changed to be non static
 
-    // Reads text files to generate vectors of puns and their associated categories and words
-    // Read from both the base PunGen file and from the users created puns file
+
     public void parser(String fileName){
         String sendToArray = null;
         String[] stuff = new String[3];
@@ -111,6 +110,7 @@ public class MainActivity extends AppCompatActivity{
                 InputStream is = am.open(fileName);
                 InputStreamReader readerFile = new InputStreamReader(is);
                 BufferedReader br = new BufferedReader(readerFile);
+                int i = 0;
                 while ((sendToArray = br.readLine()) != null) {
 
                     stuff = sendToArray.split(",");
@@ -121,6 +121,7 @@ public class MainActivity extends AppCompatActivity{
                     } else {
                         word = stuff[2];
                     }
+                    i++;
                     if (pun.equals("")) {
                         if (!(cat.equals(""))) {
                             collection.lastElement().add_cat(cat);
@@ -132,8 +133,12 @@ public class MainActivity extends AppCompatActivity{
                     } else {
                         collection.addElement(new catBase(cat, pun, word));
                     }
+                    //readerFile.close();
+
                 }
+
                 is.close();
+
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -166,18 +171,22 @@ public class MainActivity extends AppCompatActivity{
                         } else {
                             collection.addElement(new catBase(cat, pun, word));
                         }
+                        //readerFile.close();
+
                     }
                 }
                 is.close();
-            }catch(FileNotFoundException e){
+            }
+
+            catch(FileNotFoundException e){
                 e.printStackTrace();
-            }catch(IOException e){
+            }
+            catch(IOException e){
                 e.printStackTrace();
             }
         }
     }
 
-    // Sudo random selection of a pun based on the chosen word or category
     String randomPunGenerator(Vector<String> possiblePuns){
         Random rand = new Random();
         if(possiblePuns.size() == 0){
@@ -189,7 +198,7 @@ public class MainActivity extends AppCompatActivity{
             return rnd_pun;
         }
     }
-    // Checks for non letter chars in the input field
+
     boolean primaryErrorCheck(String user_input){
         boolean errorFlag = true;
         user_input = user_input.replaceAll("\\s+","");
@@ -200,9 +209,12 @@ public class MainActivity extends AppCompatActivity{
                 errorFlag = false;
             }
         }
+//        if(user_input.length() == 0){ // used for error checking empty strings or strings of all spaces after space removal
+//            errorFlag = false;        // can be reimplemented once empty string input below is defined in terms of function
+//        }
         return errorFlag;
     }
-    // allows for automatic spaces generated at the end of strings by certain phones.
+
     String remove_end_spaces(String user_input){
         String new_input = user_input;
         boolean last_space = true;
@@ -223,17 +235,18 @@ public class MainActivity extends AppCompatActivity{
         }
         return new_input;
     }
-    // Checks if a pun exists for the users input word
+
     boolean Error_check(String arg, Vector<catBase> collection){
         boolean true_flag = false;
         for(int i = 0;i<collection.size();i++){
             if(collection.elementAt(i).is_word(arg)){
                 true_flag = true;
+                //return true;
             }
         }
         return true_flag;
     }
-    // Output
+
     public Vector<String> punOut(String word, Vector<catBase> collection){
         Vector<String> puns = new Vector();
         for(int i = 0;i<collection.size();i++){
@@ -243,18 +256,33 @@ public class MainActivity extends AppCompatActivity{
         }
         return puns;
     }
-    // Creates a vector of all puns and associated categories
+
+
     void make_cat_and_pun_vectors(){
         for(int i = 0; i < collection.size(); i++){
             catBase collectionElement = collection.elementAt(i);
             Vector<String> c4t = collectionElement.get_cat();
             for(int j = 0; j < c4t.size(); j++){
-                categoryVector.addElement(c4t.elementAt(j).toLowerCase());
-                correspondingPuns.addElement(collection.elementAt(i).get_pun());
+                //if(!c4t.elementAt(j).equals("Alexei")) {
+                    categoryVector.addElement(c4t.elementAt(j).toLowerCase());
+                    correspondingPuns.addElement(collection.elementAt(i).get_pun());
+                //}
             }
         }
     }
-    // Fills the individual Category vectors for use with the categories page
+    void fill_myPunsc4t (){
+        for(int i = 0; i < collection.size(); i++){
+            catBase collectionElement = collection.elementAt(i);
+            Vector<String> c4t = collectionElement.get_cat();
+            for(int j = 0; j < c4t.size(); j++){
+                if(c4t.elementAt(j).equals("myPuns")) {
+                    categoryVector.addElement(c4t.elementAt(j).toLowerCase());
+                    correspondingPuns.addElement(collection.elementAt(i).get_pun());
+                }
+            }
+        }
+    }
+
     void fillCategoryVectors(){
         this.make_cat_and_pun_vectors();
         for(int x = 0; x < categoryVector.size(); x++){
@@ -300,10 +328,11 @@ public class MainActivity extends AppCompatActivity{
             }
         }
     }
-    // Appends the file with the users created puns and adds the pun to the colletction vector for imediate use
+
     void add_to_myPuns(String myPun){
         collection.addElement(new catBase(myPun));
         myPunsc4t.addElement(myPun);
+        this.fill_myPunsc4t();
         try{
             FileOutputStream fos = openFileOutput("myPuns.txt", Context.MODE_APPEND);
             fos.write((myPun+",myPuns,\n").getBytes());
@@ -444,6 +473,9 @@ public class MainActivity extends AppCompatActivity{
         first_time = preferenceSettings.getInt("first_time",1);
         if(first_time == 1){
             first_time = 0;
+            //File fileName = new File("/data/user/0/com.example.mirna.pungent/files/myPuns.txt");
+            //fileName.delete();
+            //context.deleteFile("myPuns.txt");
             try{
                 FileOutputStream fos = openFileOutput("myPuns.txt", Context.MODE_PRIVATE);
                 fos.write(("").getBytes());
@@ -455,7 +487,7 @@ public class MainActivity extends AppCompatActivity{
             preferenceEditor.putInt("first_time", first_time);
             preferenceEditor.commit();
         }
-        if(!(has_started)) {    // stops overwriting vectors when categories class is created and this class is re created
+        if(!(has_started)) {
             this.parser("PunGen.txt");
             this.parser("myPuns.txt");
             this.fillCategoryVectors();
@@ -516,10 +548,18 @@ public class MainActivity extends AppCompatActivity{
                     randomPun = "Your input must contain all letters";
                     popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
                     close.setText(randomPun);
+
+                } else if(user_input.equals("Alexei") || user_input.equals("alexei")) {
+                    possiblePuns = punOut("Alexei", collection);
+                    randomPun = randomPunGenerator(possiblePuns);
+                    popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
+                    close.setText(randomPun);
+
                 } else if(!(error2 = Error_check(user_input, collection))){
                     randomPun = "Sorry, this word/phrase is not in our database.";
                     popUpWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
                     close.setText(randomPun);
+
                 } else {
                     possiblePuns = punOut(user_input, collection);
                     randomPun = randomPunGenerator(possiblePuns);
@@ -535,12 +575,19 @@ public class MainActivity extends AppCompatActivity{
             public void onClick(View v) {
                 Random rand = new Random();
                 int rnd_num = Math.abs(rand.nextInt() % collection.size());
-                close.setText(collection.elementAt(rnd_num).get_pun());
+                String cat = collection.elementAt(rnd_num).get_cat_string();
+
+                while(cat.equals("Alexei")){
+                    rnd_num = Math.abs(rand.nextInt() % collection.size());
+                    cat = collection.elementAt(rnd_num).get_cat_string();
+                }
+
+                String pun = collection.elementAt(rnd_num).get_pun();
+                close.setText(pun);
                 popUpWindow.getBackground().setColorFilter(0xFFFFFF, PorterDuff.Mode.MULTIPLY);
                 popUpWindow.showAtLocation(mainLayout, Gravity.CENTER,0, 0);
                 close.setTextSize(25);
                 close.setTypeface(buttonFont);
-
             }
         });
 
