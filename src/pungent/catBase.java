@@ -1,4 +1,4 @@
-package com.example.shawnalee.pungen;
+package com.example.mirna.pungent;
 
 import java.util.Vector;
 
@@ -8,17 +8,20 @@ import java.util.Vector;
  */
 public class catBase{
     private Vector<String> cat= new Vector();
+    private String cat_string;
     private String pun;
     private Vector<String> associated_words= new Vector();
 
 
-    catBase(String a, String b, String c){cat.add(a); pun =b; associated_words.add(c);}
+    catBase(String a, String b, String c){cat.add(a); cat_string = a; pun = b; associated_words.add(c);}
     catBase(String b){cat.add("myPuns"); pun = b;}
     public void add_word(String a){associated_words.addElement(a);}
 
     public void add_cat(String a){cat.addElement(a);}
 
     public String get_pun(){return pun;}
+
+    public String get_cat_string(){return cat_string;}
 
     public Vector<String> get_word(){
         return associated_words;
