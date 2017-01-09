@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity{
                 int i = 0;
                 while ((sendToArray = br.readLine()) != null) {
 
-                    stuff = sendToArray.split(",");
+                    stuff = sendToArray.split("~");
                     pun = stuff[0];
                     cat = stuff[1];
                     if (stuff.length != 3) {
