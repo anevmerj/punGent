@@ -335,7 +335,7 @@ public class MainActivity extends AppCompatActivity{
         this.fill_myPunsc4t();
         try{
             FileOutputStream fos = openFileOutput("myPuns.txt", Context.MODE_APPEND);
-            fos.write((myPun+",myPuns,\n").getBytes());
+            fos.write((myPun+"~myPuns~\n").getBytes());
             fos.close();
         }catch(IOException ex){
             ex.printStackTrace();
