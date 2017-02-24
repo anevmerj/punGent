@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity{
         String pun = null;
         String cat = null;
         String word = null;
-        if(fileName.equals("PunGen.txt")) {
+        if(fileName.equals("punDatabase.txt")) {
             try {
                 AssetManager am = getAssets();
                 InputStream is = am.open(fileName);
