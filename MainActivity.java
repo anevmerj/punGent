@@ -501,7 +501,7 @@ public class MainActivity extends AppCompatActivity{
             preferenceEditor.commit();
         }
         if(!(has_started)) {
-            this.parser("PunGen.txt");
+            this.parser("punDatabase.txt");
             this.parser("myPuns.txt");
             this.fillCategoryVectors();
             has_started = true;
