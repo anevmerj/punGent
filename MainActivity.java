@@ -246,6 +246,19 @@ public class MainActivity extends AppCompatActivity{
         }
         return true_flag;
     }
+    
+    /*
+    public class Error_check {
+    public static boolean main(String arg, Vector<catBase> collection){
+        for(int i = 0;i<collection.size();i++){
+            if(collection.elementAt(i).is_word(arg)){
+                return true;
+            }
+        }
+        return false;
+    }
+}
+*/
 
     public Vector<String> punOut(String word, Vector<catBase> collection){
         Vector<String> puns = new Vector();
