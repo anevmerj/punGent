@@ -596,12 +596,12 @@ public class MainActivity extends AppCompatActivity{
         my_puns.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                my_puns.setId(i);
+                /*my_puns.setId(i);
                 if(v.getId() == i){
                     Intent i = new Intent(getApplicationContext(), mypuns.class);
                     startActivity(i);
 
-                }
+                }*/
                 /*user_input = input.getText().toString();
                 user_input = remove_end_spaces(user_input);
                 if(user_input.equals("")) {
