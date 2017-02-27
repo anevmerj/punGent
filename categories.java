@@ -248,7 +248,11 @@ public class categories extends MainActivity {
             public void onClick(View v) {
                 popUpWindow.getBackground().setColorFilter(0xFFFFFF, PorterDuff.Mode.MULTIPLY);
                 popUpWindow.showAtLocation(mainLayout, Gravity.CENTER,0, 0);
-                String pun = randomPunGenerator(myPunsc4t);
+                String pun;
+                if (myPunsc4t.size() == 0) {
+                    pun = "This category is punless";
+                }
+                else {pun = randomPunGenerator(myPunsc4t);}
                 close.setText(pun);
             }
         });
